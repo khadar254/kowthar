@@ -12,10 +12,12 @@
         "@testing-library/react": "^11.1.0",
         "@testing-library/user-event": "^12.1.10",
         "compression": "^1.7.4",
+        "config": "^3.3.6",
         "cors": "^2.8.5",
         "dotenv": "^10.0.0",
         "esm": "^3.2.25",
         "express": "^4.17.1",
+        "formik": "^2.2.9",
         "framer-motion": "^4",
         "mongoose": "^5.12.13",
         "react": "^17.0.2",
@@ -24,15 +26,18 @@
         "react-router-dom": "^5.2.0",
         "react-scripts": "4.0.3",
         "react-spinners": "^0.11.0",
-        "web-vitals": "^1.0.1"
+        "web-vitals": "^1.0.1",
+        "yup": "^0.32.9"
     },
     "main": "public/electron.js",
     "scripts": {
+        "api": "nodemon -r esm api/server.js",
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "dev": "concurrently -k \"BROWSER=none yarn start\" \"npm:electron\"",
+        "dev": "concurrently -k \"BROWSER=none yarn start\" \"yarn run electron\" \"yarn run api\"",
+        "start:dev": "concurrently -k \"yarn start\"  \"yarn run api\"",
         "electron": "wait-on tcp:3000 && electron ."
     },
     "eslintConfig": {

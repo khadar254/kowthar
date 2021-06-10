@@ -30,7 +30,7 @@ app.use(function (req, res, next) {
 app.use(compression())
 
 //mongodb connection
-const dbUrl = require('./keys').mongoUri
+const dbUrl = 'mongodb://localhost:27017/kowthar'
 
 mongoose.connect(
     dbUrl,
@@ -49,6 +49,6 @@ mongoose.connect(
     }
 )
 
-const port = process.env.PORT || 8000
+const port = process.env.PORT || 3001
 
 server.listen(port, () => console.log(`server is running on port ${port}`))
