@@ -4,6 +4,7 @@ import AppRouter from './Router'
 import reportWebVitals from './reportWebVitals'
 import { ChakraProvider, CSSReset } from '@chakra-ui/react'
 import { theme } from './utils/theme'
+import ContextProvider from './contexts'
 import '@fontsource/fira-sans/700.css'
 import '@fontsource/fira-sans/400.css'
 
@@ -11,7 +12,9 @@ const app = (
     <React.StrictMode>
         <ChakraProvider theme={theme}>
             <CSSReset />
-            <AppRouter />
+            <ContextProvider>
+                <AppRouter />
+            </ContextProvider>
         </ChakraProvider>
     </React.StrictMode>
 )

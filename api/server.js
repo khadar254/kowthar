@@ -1,9 +1,12 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const cors = require('cors')
-const http = require('http')
-const compression = require('compression')
-require('dotenv').config()
+import express from 'express'
+import mongoose from 'mongoose'
+import cors from 'cors'
+import http from 'http'
+import compression from 'compression'
+import { keys } from './keys'
+
+// api endpoints
+import { authRoutes } from './routes/user'
 
 // create express app
 const app = express()
@@ -30,10 +33,8 @@ app.use(function (req, res, next) {
 app.use(compression())
 
 //mongodb connection
-const dbUrl = 'mongodb://localhost:27017/kowthar'
-
 mongoose.connect(
-    dbUrl,
+    keys.mongoUri,
     {
         useCreateIndex: true,
         useFindAndModify: false,
@@ -48,6 +49,8 @@ mongoose.connect(
         console.log('Mongodb is running ....')
     }
 )
+
+app.use('/api/auth/', authRoutes)
 
 const port = process.env.PORT || 3001
 

@@ -16,7 +16,7 @@ function Home() {
     return (
         <Box width='100%' height='100vh' overflow='hidden' bg='#eee'>
             <Box width='70%' mx='auto' p='20px 0'>
-                <Center as={Stack} direction='column'>
+                <Center as={Stack} direction='column' color='#333'>
                     <Heading size='2xl' as='h1'>
                         Kowthar
                     </Heading>
@@ -67,11 +67,11 @@ function Home() {
                             as={Link}
                             to='/login'
                             my='2rem'
-                            bg='cyan.500'
+                            bg='cyan.700'
                             color='#fff'
                             borderRadius='10px'
                             p='20px'
-                            _hover={{ bg: 'cyan.600' }}
+                            _hover={{ bg: 'cyan.800' }}
                             _focus={{ outline: 'none' }}
                             height='3.5rem'>
                             <Icon
@@ -92,7 +92,7 @@ function Home() {
                 justifyContent='center'
                 alignItems='center'
                 p='20px'>
-                <Text fontSize='1.2rem'>
+                <Text fontSize='1.2rem' color='#333'>
                     &copy; Copyright Kowthar Hardware &bull;{' '}
                     {new Date().getFullYear()}
                 </Text>
