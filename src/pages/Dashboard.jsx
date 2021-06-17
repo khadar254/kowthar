@@ -2,6 +2,7 @@ import React from 'react'
 import { Box, Heading, Divider, Stack, Text } from '@chakra-ui/react'
 import Navbar from '../components/common/Navbar'
 import { useAuth } from '../contexts/AuthContext'
+import OptionsList from '../components/dashboard/OptionsList'
 
 function Dashboard() {
     const { user } = useAuth()
@@ -26,6 +27,8 @@ function Dashboard() {
                         </Text>
                     </Stack>
                     <Divider my='1rem' border='2px solid #555' />
+
+                    <OptionsList />
                 </Box>
             </Box>
         </>

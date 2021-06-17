@@ -36,7 +36,7 @@ function Navbar() {
                 alignContent='center'
                 width={['100%', '100%', '90%', '80%']}
                 mx='auto'
-                p='10px'
+                p='10px 0'
                 height='100%'>
                 <HStack color='#fff'>
                     <Heading size='lg'>Kowthar</Heading>
@@ -45,12 +45,7 @@ function Navbar() {
                     </Text>
                 </HStack>
 
-                <Tag
-                    p='10px'
-                    borderRadius='10px'
-                    width='auto'
-                    bg='cyan.700'
-                    color='#fff'>
+                <Tag p='10px' width='auto' bg='transparent' color='#fff'>
                     <Avatar size='sm' name={user && user.name} />
                     <TagLabel mx='1rem' fontSize='1.2rem' fontWeight='600'>
                         {user && user.username}

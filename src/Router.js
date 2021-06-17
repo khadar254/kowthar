@@ -4,6 +4,7 @@ import NotFound from './pages/404'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
+import User from './pages/Users'
 
 function AppRouter() {
     return (
@@ -12,6 +13,7 @@ function AppRouter() {
                 <Route exact path='/' component={Home} />
                 <Route exact path='/login' component={Login} />
                 <PrivateRoute exact path='/dashboard' component={Dashboard} />
+                <PrivateRoute exact path='/users' component={User} />
                 <Route exact path='*' component={NotFound} />
             </Switch>
         </Router>

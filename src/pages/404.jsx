@@ -10,8 +10,10 @@ import {
 } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import { MdHome } from 'react-icons/md'
+import { useAuth } from '../contexts/AuthContext'
 
 function NotFound() {
+    const { user } = useAuth()
     return (
         <Box height='100vh' width='100%' overflow='hidden'>
             <Box
@@ -36,7 +38,7 @@ function NotFound() {
                 </Text>
                 <Button
                     as={Link}
-                    to='/'
+                    to={user ? '/dashboard' : '/'}
                     bg='cyan.500'
                     height='3.5rem'
                     borderRadius='10px'

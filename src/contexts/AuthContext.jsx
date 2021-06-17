@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useReducer, useEffect } from 'react'
+import React, {
+    createContext,
+    useContext,
+    useReducer,
+    useEffect,
+    useCallback,
+} from 'react'
 import * as types from './types'
 import { AuthReducer } from './reducers/AuthReducer'
 import axios from 'axios'
@@ -65,6 +71,7 @@ function AuthProvider({ children }) {
                 dispatch({
                     type: types.LOGOUT_FAIL,
                 })
+                setError(data.message)
             } else {
                 dispatch({
                     type: types.LOGOUT_SUCCESS,
@@ -72,7 +79,6 @@ function AuthProvider({ children }) {
             }
         } catch (error) {
             const { data } = error.response
-
             dispatch({ type: types.LOGOUT_FAIL })
             // show Error
             setError(data.message)
@@ -106,7 +112,7 @@ function AuthProvider({ children }) {
         }
     }
 
-    async function fetchUsers() {
+    const fetchUsers = useCallback(async () => {
         try {
             dispatch({
                 type: types.FETCH_USERS_REQUEST,
@@ -119,13 +125,14 @@ function AuthProvider({ children }) {
                 payload: data,
             })
         } catch (error) {
-            const { data } = error.response
+            // const { data } = error.response
 
             dispatch({ type: types.FETCH_USERS_FAIL })
             // show error
-            setError(data.message)
+            // setError(data.message)
         }
-    }
+    }, [])
+
     async function updateUser(id, update) {
         try {
             dispatch({
@@ -158,7 +165,7 @@ function AuthProvider({ children }) {
                 type: types.DELETE_USER_REQUEST,
             })
 
-            const { data } = await axios.get(`/api/auth/users/${id}`, config())
+            const { data } = await axios.delete(`/api/auth/users/${id}`, config())
 
             dispatch({
                 type: types.DELETE_USER_SUCCESS,

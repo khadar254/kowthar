@@ -11,8 +11,10 @@ import {
 } from '@chakra-ui/react'
 import { MdDashboard } from 'react-icons/md'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
 
 function Home() {
+    const { isAuthenticated, user } = useAuth()
     return (
         <Box width='100%' height='100vh' overflow='hidden' bg='#eee'>
             <Box width='70%' mx='auto' p='20px 0'>
@@ -79,9 +81,15 @@ function Home() {
                                 as={MdDashboard}
                                 fontSize='1.6rem'
                             />
-                            <Text fontWeight='500' fontSize='1.2rem'>
-                                Login into dashboard
-                            </Text>
+                            {isAuthenticated ? (
+                                <Text fontWeight='500' fontSize='1.2rem'>
+                                    Hi {user.username}, go back to dashboard
+                                </Text>
+                            ) : (
+                                <Text fontWeight='500' fontSize='1.2rem'>
+                                    Login into dashboard
+                                </Text>
+                            )}
                         </Button>
                     </Box>
                 </Box>

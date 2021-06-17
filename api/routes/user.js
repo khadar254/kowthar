@@ -78,8 +78,11 @@ router.post('/createuser', async (req, res) => {
     }
 })
 
-router.get('/users', authVerify, (_, res) => {
-    const users = user.find({}).sort({ created: 'asc' })
+router.get('/users', authVerify, async (_, res) => {
+    const users = await user
+        .find({})
+        .sort({ created: 'asc' })
+        .select('-password')
 
     try {
         if (!users.length) {
