@@ -1,10 +1,16 @@
 import React from 'react'
 import { Tr, Td, IconButton } from '@chakra-ui/react'
-import { FaTrashAlt, FaPencilAlt } from 'react-icons/fa'
+import { FaTrashAlt, FaPencilAlt, FaTimesCircle } from 'react-icons/fa'
 import { useAuth } from '../../contexts/AuthContext'
 
-function UserListItem({ user }) {
+function UserListItem({ user, setEdit, edit, setToEdit, toggle }) {
     const { deleteUser } = useAuth()
+
+    const handleEdit = () => {
+        setToEdit(user)
+        setEdit(true)
+        toggle()
+    }
     return (
         <Tr>
             <Td>{user?.name}</Td>
@@ -13,21 +19,41 @@ function UserListItem({ user }) {
             <Td>{user?.role}</Td>
             <Td>{new Date(user?.lastLoggedInAt).toLocaleString()}</Td>
             <Td>
-                <IconButton
-                    _focus={{ outine: 'none' }}
-                    icon={<FaPencilAlt />}
-                    colorScheme='cyan'
-                    borderRadius='10px'
-                    color='#f2f2f2'
-                />
-                <IconButton
-                    ml='0.5rem'
-                    _focus={{ outine: 'none' }}
-                    borderRadius='10px'
-                    onClick={() => deleteUser(user?._id)}
-                    icon={<FaTrashAlt />}
-                    colorScheme='red'
-                />
+                {edit ? (
+                    <IconButton
+                        _focus={{ outine: 'none' }}
+                        icon={<FaTimesCircle />}
+                        colorScheme='cyan'
+                        onClick={() => {
+                            toggle()
+                            setEdit(false)
+                            setToEdit({})
+                        }}
+                        borderRadius='10px'
+                        color='#f2f2f2'
+                    />
+                ) : (
+                    <IconButton
+                        _focus={{ outine: 'none' }}
+                        icon={<FaPencilAlt />}
+                        colorScheme='cyan'
+                        onClick={handleEdit}
+                        borderRadius='10px'
+                        color='#f2f2f2'
+                        display='none'
+                    />
+                )}
+
+                {edit ? null : (
+                    <IconButton
+                        ml='0.5rem'
+                        _focus={{ outine: 'none' }}
+                        borderRadius='10px'
+                        onClick={() => deleteUser(user?._id)}
+                        icon={<FaTrashAlt />}
+                        colorScheme='red'
+                    />
+                )}
             </Td>
         </Tr>
     )

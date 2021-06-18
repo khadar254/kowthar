@@ -19,7 +19,7 @@ function Home() {
         <Box width='100%' height='100vh' overflow='hidden' bg='#eee'>
             <Box width='70%' mx='auto' p='20px 0'>
                 <Center as={Stack} direction='column' color='#333'>
-                    <Heading size='2xl' as='h1'>
+                    <Heading size={['2xl']} as='h1'>
                         Kowthar
                     </Heading>
                     <Text as='small' fontSize='1.3rem'>
@@ -57,7 +57,7 @@ function Home() {
                         height='100%'>
                         <Heading
                             color='#fff'
-                            size='4xl'
+                            size='2xl'
                             width='60%'
                             my='2rem'
                             textAlign='center'

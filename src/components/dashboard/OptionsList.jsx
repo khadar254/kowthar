@@ -19,6 +19,7 @@ function OptionsList() {
                 templateColumns={[
                     'repeat(1, 1fr)',
                     'repeat(2, 1fr)',
+                    'repeat(2, 1fr)',
                     'repeat(3, 1fr)',
                 ]}>
                 {options.map((option, index) => (
@@ -28,7 +29,7 @@ function OptionsList() {
                         bg='#fff'
                         alignItems='center'
                         justifyContent='space-between'
-                        height='28vh'
+                        height='30vh'
                         shadow='md'
                         p='20px 10px'
                         borderRadius='20px'
@@ -42,7 +43,7 @@ function OptionsList() {
                         />
                         <Heading
                             as={Link}
-                            size='lg'
+                            size={['md', 'md', 'lg', 'lg']}
                             to={{ pathname: option.link }}>
                             {option.name}
                         </Heading>
@@ -50,6 +51,7 @@ function OptionsList() {
                         {user?.role === 'admin' ? (
                             <Button
                                 as={Link}
+                                height='3rem'
                                 to={{ pathname: option.link }}
                                 colorScheme='cyan'
                                 color='#fff'>
@@ -57,6 +59,7 @@ function OptionsList() {
                             </Button>
                         ) : (
                             <Button
+                                height='3rem'
                                 bg='transparent'
                                 color='#fff'
                                 visibility='hidden'>

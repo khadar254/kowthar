@@ -62,8 +62,6 @@ router.post('/createuser', async (req, res) => {
     const salt = await genSalt(12)
     const hashPass = await hash(req.body.password, salt)
 
-    console.log(req.body)
-
     // create new user
     const newUser = new user({
         ...req.body,
@@ -72,7 +70,7 @@ router.post('/createuser', async (req, res) => {
 
     try {
         const savedUser = await newUser.save()
-        res.status(201).json({ message: 'ok', user: savedUser })
+        res.status(201).json({ message: 'new user created', user: savedUser })
     } catch (error) {
         res.status(400).json({ message: error })
     }

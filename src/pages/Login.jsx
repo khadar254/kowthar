@@ -33,7 +33,7 @@ function Login() {
             position='relative'
             bg='#eee'>
             <Box
-                width='30%'
+                width={['60%', '60%', '50%', '30%']}
                 height='auto'
                 minHeight='50vh'
                 bg='cyan.700'

@@ -30,7 +30,7 @@ export const AuthReducer = (state, action) => {
             return {
                 ...state,
                 creating: false,
-                users: [payload.user, ...state.users],
+                users: [...state.users, payload.user],
             }
         case types.CREATE_USER_FAIL:
             return {

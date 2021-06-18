@@ -2,13 +2,18 @@ const path = require('path')
 const { app, BrowserWindow } = require('electron')
 const isDev = require('electron-is-dev')
 
+require('@electron/remote/main').initialize()
+
+let win
+
 function createWindow() {
     // create the browser window
-    const win = new BrowserWindow({
+    win = new BrowserWindow({
         width: 800,
         height: 600,
         webPreferences: {
             nodeIntegration: true,
+            enableRemoteModule: true,
         },
     })
 
@@ -21,12 +26,12 @@ function createWindow() {
     )
 
     // open devtools in development
-    if (isDev) {
-        win.webContents.openDevTools({ mode: 'detach' })
-    }
+    // if (isDev) {
+    //     win.webContents.openDevTools({ mode: 'detach' })
+    // }
 }
 
-app.whenReady().then(createWindow)
+app.on('ready', createWindow)
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {

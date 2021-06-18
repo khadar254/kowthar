@@ -41,7 +41,7 @@ function Users() {
                     <HStack width='100%' justifyContent='space-between'>
                         <HStack>
                             <IconButton
-                                onClick={() => history.goBack()}
+                                onClick={() => history.push('/dashboard')}
                                 icon={<FaChevronLeft />}
                                 bg='cyan.600'
                                 color='#fff'
@@ -64,7 +64,7 @@ function Users() {
                     </HStack>
                     <Divider my='1rem' border='2px solid #eee' />
 
-                    <UserList users={users} isOpen={isOpen} />
+                    <UserList users={users} isOpen={isOpen} toggle={toggle} />
                 </Box>
             </Box>
         </>

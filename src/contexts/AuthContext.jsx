@@ -81,7 +81,9 @@ function AuthProvider({ children }) {
             const { data } = error.response
             dispatch({ type: types.LOGOUT_FAIL })
             // show Error
-            setError(data.message)
+            if (data.message) {
+                setError(data.message)
+            }
         }
     }
 
@@ -140,7 +142,7 @@ function AuthProvider({ children }) {
             })
 
             const { data } = await axios.put(
-                `/api/auth/users/${id}`,
+                `/api/auth/user/${id}`,
                 update,
                 config()
             )
@@ -165,7 +167,10 @@ function AuthProvider({ children }) {
                 type: types.DELETE_USER_REQUEST,
             })
 
-            const { data } = await axios.delete(`/api/auth/users/${id}`, config())
+            const { data } = await axios.delete(
+                `/api/auth/user/${id}`,
+                config()
+            )
 
             dispatch({
                 type: types.DELETE_USER_SUCCESS,
