@@ -113,7 +113,9 @@ router.put('/user/:id', authVerify, async (req, res) => {
         if (!updatedUser) {
             return res.status(400).json({ message: 'user not found' })
         } else {
-            return res.status(200).json({ message: 'ok', user: updatedUser })
+            return res
+                .status(200)
+                .json({ message: 'user updated', user: updatedUser })
         }
     } catch (error) {
         return res
