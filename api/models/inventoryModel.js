@@ -3,7 +3,11 @@ import mongoose from 'mongoose'
 const inventorySchema = new mongoose.Schema({
     productId: {
         type: String,
-        defaut: '',
+        default: '',
+    },
+    productName: {
+        type: String,
+        default: '',
     },
     quantityAdded: {
         type: Number,

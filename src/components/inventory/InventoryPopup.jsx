@@ -33,7 +33,7 @@ function InventoryPopup({ isOpen, onClose }) {
                     helpers.resetForm()
                     onClose()
                 }}>
-                {({ errors, handleSubmit, touched, values }) => (
+                {({ errors, handleSubmit, touched }) => (
                     <>
                         <InventoryForm
                             errors={errors}
@@ -42,10 +42,6 @@ function InventoryPopup({ isOpen, onClose }) {
                             Field={Field}
                             loading={creating}
                         />
-                        <button type='button' onClick={handleSubmit}>
-                            Submit
-                        </button>
-                        <pre>{JSON.stringify(values, null, 3)}</pre>
                     </>
                 )}
             </Formik>

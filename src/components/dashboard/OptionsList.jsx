@@ -12,7 +12,12 @@ function OptionsList() {
             name: 'Manage Users',
         },
         {
-            image: '/images/usermanage.svg',
+            image: '/images/productmanage.svg',
+            link: '/products',
+            name: 'Manage Products',
+        },
+        {
+            image: '/images/inventorymanage.svg',
             link: '/inventory',
             name: 'Manage Inventory',
         },
@@ -48,7 +53,7 @@ function OptionsList() {
                         />
                         <Heading
                             as={Link}
-                            size={['md', 'md', 'lg', 'lg']}
+                            size='md'
                             to={{ pathname: option.link }}>
                             {option.name}
                         </Heading>

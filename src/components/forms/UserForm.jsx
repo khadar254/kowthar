@@ -21,8 +21,6 @@ function UserForm({ submit, errors, touched, Field, loading, status }) {
                 <Field
                     as={Input}
                     height='3rem'
-                    border='none'
-                    bg='#eee'
                     _placeholder={{ color: '#555', opacity: '0.5' }}
                     _focus={{ outline: 'none' }}
                     color='#333'
@@ -30,7 +28,7 @@ function UserForm({ submit, errors, touched, Field, loading, status }) {
                     type='text'
                     name='name'
                 />
-                <FormErrorMessage color='red.200'>
+                <FormErrorMessage>
                     {errors.name && touched.name && errors.name}
                 </FormErrorMessage>
             </FormControl>
@@ -42,8 +40,6 @@ function UserForm({ submit, errors, touched, Field, loading, status }) {
                 <Field
                     as={Input}
                     height='3rem'
-                    border='none'
-                    bg='#eee'
                     _placeholder={{ color: '#555', opacity: '0.5' }}
                     _focus={{ outline: 'none' }}
                     color='#333'
@@ -51,7 +47,7 @@ function UserForm({ submit, errors, touched, Field, loading, status }) {
                     type='text'
                     name='username'
                 />
-                <FormErrorMessage color='red.200'>
+                <FormErrorMessage>
                     {errors.username && touched.username && errors.username}
                 </FormErrorMessage>
             </FormControl>
@@ -63,8 +59,6 @@ function UserForm({ submit, errors, touched, Field, loading, status }) {
                 <Field
                     as={Input}
                     height='3rem'
-                    border='none'
-                    bg='#eee'
                     _placeholder={{ color: '#555', opacity: '0.5' }}
                     _focus={{ outline: 'none' }}
                     color='#333'
@@ -72,7 +66,7 @@ function UserForm({ submit, errors, touched, Field, loading, status }) {
                     type='text'
                     name='email'
                 />
-                <FormErrorMessage color='red.200'>
+                <FormErrorMessage>
                     {errors.email && touched.email && errors.email}
                 </FormErrorMessage>
             </FormControl>
@@ -84,8 +78,6 @@ function UserForm({ submit, errors, touched, Field, loading, status }) {
                 <Field
                     as={Select}
                     height='3rem'
-                    border='none'
-                    bg='#eee'
                     _placeholder={{ color: '#555', opacity: '0.5' }}
                     _focus={{ outline: 'none' }}
                     color='#333'
@@ -94,7 +86,7 @@ function UserForm({ submit, errors, touched, Field, loading, status }) {
                     <option value='sales'>Sales</option>
                     <option value='admin'>Admin</option>
                 </Field>
-                <FormErrorMessage color='red.200'>
+                <FormErrorMessage>
                     {errors.role && touched.role && errors.role}
                 </FormErrorMessage>
             </FormControl>
@@ -106,8 +98,6 @@ function UserForm({ submit, errors, touched, Field, loading, status }) {
                 <Field
                     as={Input}
                     height='3rem'
-                    border='none'
-                    bg='#eee'
                     _placeholder={{ color: '#555', opacity: '0.5' }}
                     _focus={{ outline: 'none' }}
                     color='#333'
@@ -115,7 +105,7 @@ function UserForm({ submit, errors, touched, Field, loading, status }) {
                     type='password'
                     name='password'
                 />
-                <FormErrorMessage color='red.200'>
+                <FormErrorMessage>
                     {errors.password && touched.password && errors.password}
                 </FormErrorMessage>
             </FormControl>
@@ -127,8 +117,6 @@ function UserForm({ submit, errors, touched, Field, loading, status }) {
                 <Field
                     as={Input}
                     height='3rem'
-                    border='none'
-                    bg='#eee'
                     _placeholder={{ color: '#555', opacity: '0.5' }}
                     _focus={{ outline: 'none' }}
                     color='#333'
@@ -136,7 +124,7 @@ function UserForm({ submit, errors, touched, Field, loading, status }) {
                     type='password'
                     name='confirmpass'
                 />
-                <FormErrorMessage color='red.200'>
+                <FormErrorMessage>
                     {errors.confirmpass &&
                         touched.confirmpass &&
                         errors.confirmpass}

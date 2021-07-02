@@ -9,19 +9,20 @@ router.post('/', authVerify, async (req, res) => {
     try {
         const data = req.body
 
-        const newInventory = new inventory({
-            ...data,
-        })
+        const productToUpdate = await product.findById(data.productId)
 
-        const item = await newInventory.save()
-
-        const productToUpdate = await product.findById(item.productId)
-
-        const newQuantity = productToUpdate.quantity + item.quantityAdded
+        const newQuantity = productToUpdate.quantity + data.quantityAdded
 
         await product.findByIdAndUpdate(productToUpdate._id, {
             $set: { updated: Date.now(), quantity: newQuantity },
         })
+
+        const newInventory = new inventory({
+            ...data,
+            productName: productToUpdate.name,
+        })
+
+        const item = await newInventory.save()
 
         return res.status(201).json({ message: 'inventory created', item })
     } catch (error) {

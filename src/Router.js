@@ -6,6 +6,7 @@ import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import User from './pages/Users'
 import Inventory from './pages/Inventory'
+import Product from './pages/Products'
 
 function AppRouter() {
     return (
@@ -16,6 +17,7 @@ function AppRouter() {
                 <PrivateRoute exact path='/dashboard' component={Dashboard} />
                 <PrivateRoute exact path='/users' component={User} />
                 <PrivateRoute exact path='/inventory' component={Inventory} />
+                <PrivateRoute exact path='/products' component={Product} />
                 <Route exact path='*' component={NotFound} />
             </Switch>
         </Router>

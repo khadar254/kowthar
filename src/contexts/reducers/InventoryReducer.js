@@ -12,7 +12,7 @@ export const InventoryReducer = (state, action) => {
             return {
                 ...state,
                 creating: false,
-                inventory: [...state.inventory, payload.item],
+                inventory: [payload.item, ...state.inventory],
             }
         case types.CREATE_INVENTORY_FAIL:
             return {

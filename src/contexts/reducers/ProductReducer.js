@@ -12,7 +12,7 @@ export const ProductReducer = (state, action) => {
             return {
                 ...state,
                 creating: false,
-                products: [...state.products, payload.item],
+                products: [payload.item, ...state.products],
             }
         case types.CREATE_PRODUCT_FAIL:
             return {

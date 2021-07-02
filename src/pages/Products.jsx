@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import {
     Box,
     Heading,
@@ -11,27 +11,29 @@ import {
 import Navbar from '../components/common/Navbar'
 import { FaChevronLeft } from 'react-icons/fa'
 import { useHistory } from 'react-router-dom'
+import { useProduct } from '../contexts/ProductContext'
 import { useAuth } from '../contexts/AuthContext'
-import UserList from '../components/users/UserList'
-import UserAddPopup from '../components/users/UserAddPopup'
+import ProductPopup from '../components/inventory/ProductPopup'
+import ProductList from '../components/inventory/ProductList'
 
-function Users() {
+function Product() {
     const history = useHistory()
-    const { isOpen, onOpen, onClose } = useDisclosure()
-    const { fetchUsers, user, users } = useAuth()
+    const { isOpen, onClose, onOpen } = useDisclosure()
+    const { products, fetchProducts } = useProduct()
+    const { user } = useAuth()
 
     useEffect(() => {
         if (user?.role !== 'admin') {
-            history.goBack()
+            history.push('/dashboard')
         } else {
-            fetchUsers()
+            fetchProducts()
         }
-    }, [fetchUsers, user?.role, history])
+    }, [user?.role, history])
     return (
         <>
             <Navbar />
-            <UserAddPopup isOpen={isOpen} onClose={onClose} />
             <Box height='93vh' overflow='hidden' width='100%' bg='#eee'>
+                <ProductPopup onClose={onClose} isOpen={isOpen} />
                 <Box
                     mx='auto'
                     width={['100%', '100%', '90%', '80%']}
@@ -42,32 +44,31 @@ function Users() {
                                 onClick={() => history.push('/dashboard')}
                                 icon={<FaChevronLeft />}
                                 bg='cyan.600'
-                                color='#fff'
                                 borderRadius='10px'
+                                color='#fff'
                                 _hover={{ bg: 'cyan.700' }}
                                 mr='2rem'
                             />
-                            <Heading>Manage Users</Heading>
+                            <Heading>Manage Products</Heading>
                         </HStack>
                         <Button
                             bg='cyan.600'
                             width='10%'
-                            onClick={onOpen}
                             height='3rem'
+                            onClick={onOpen}
                             color='#fff'
                             borderRadius='10px'
                             _focus={{ outline: 'none' }}
                             _hover={{ bg: 'cyan.600' }}>
-                            Add User
+                            New Product
                         </Button>
                     </HStack>
                     <Divider my='1rem' border='2px solid #eee' />
-
-                    <UserList users={users} isOpen={isOpen} />
+                    <ProductList products={products} />
                 </Box>
             </Box>
         </>
     )
 }
 
-export default Users
+export default Product

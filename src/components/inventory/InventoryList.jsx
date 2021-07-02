@@ -19,7 +19,7 @@ function InventoryList({ inventory }) {
                     Inventory table
                 </TableCaption>
                 <Thead>
-                    <Th fontSize='1rem'>Product Id</Th>
+                    <Th fontSize='1rem'>Product</Th>
                     <Th fontSize='1rem'>Quantity Added</Th>
                     <Th fontSize='1rem'>Added By</Th>
                     <Th fontSize='1rem'>Date Added</Th>
