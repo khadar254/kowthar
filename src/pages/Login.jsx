@@ -14,7 +14,7 @@ function Login() {
 
     const validator = yup.object().shape({
         username: yup.string().required('username is required'),
-        password: yup.string().min(8).required('password is required'),
+        password: yup.string().min(6).required('password is required'),
     })
 
     const isAuthenticated = !!localStorage.getItem('auth-token')
@@ -55,8 +55,8 @@ function Login() {
                     }}
                     validationSchema={validator}
                     onSubmit={(values, actions) => {
+                        console.log(values)
                         login(values)
-                        // console.log(values)
                         actions.resetForm()
                     }}>
                     {({ errors, handleSubmit, touched }) => (

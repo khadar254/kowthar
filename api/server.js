@@ -7,6 +7,8 @@ import { keys } from './keys'
 
 // api endpoints
 import { authRoutes } from './routes/user'
+import { productRoutes } from './routes/product'
+import { inventoryRoutes } from './routes/inventory'
 
 // create express app
 const app = express()
@@ -18,6 +20,17 @@ const corsOptions = {
 
 // express middleware
 app.use(express.json())
+app.use(function (error, req, res, next) {
+    if (error instanceof SyntaxError) {
+        //Handle SyntaxError here.
+        console.log({ body: req.body })
+        console.log(error)
+        return res.status(500).send({ data: 'Invalid data' })
+    } else {
+        next()
+    }
+})
+
 app.use(cors(corsOptions))
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
@@ -51,6 +64,8 @@ mongoose.connect(
 )
 
 app.use('/api/auth/', authRoutes)
+app.use('/api/products/', productRoutes)
+app.use('/api/inventory/', inventoryRoutes)
 
 const port = process.env.PORT || 3001
 

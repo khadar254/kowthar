@@ -1,39 +1,9 @@
 {
     "name": "kowthar",
-    "version": "0.1.0",
-    "private": true,
-    "proxy": "http://localhost:3001",
-    "dependencies": {
-        "@chakra-ui/react": "^1.6.3",
-        "@emotion/react": "^11",
-        "@emotion/styled": "^11",
-        "@fontsource/fira-sans": "^4.4.5",
-        "@testing-library/jest-dom": "^5.11.4",
-        "@testing-library/react": "^11.1.0",
-        "@testing-library/user-event": "^12.1.10",
-        "axios": "^0.21.1",
-        "bcryptjs": "^2.4.3",
-        "compression": "^1.7.4",
-        "config": "^3.3.6",
-        "cors": "^2.8.5",
-        "dotenv": "^10.0.0",
-        "esm": "^3.2.25",
-        "express": "^4.17.1",
-        "formik": "^2.2.9",
-        "framer-motion": "^4",
-        "joi": "^17.4.0",
-        "jsonwebtoken": "^8.5.1",
-        "mongoose": "^5.12.13",
-        "react": "^17.0.2",
-        "react-dom": "^17.0.2",
-        "react-icons": "^4.2.0",
-        "react-router-dom": "^5.2.0",
-        "react-scripts": "4.0.3",
-        "react-spinners": "^0.11.0",
-        "web-vitals": "^1.0.1",
-        "yup": "^0.32.9"
-    },
+    "version": "1.0.0",
+    "description": "POS System",
     "main": "public/electron.js",
+    "proxy": "http://localhost:3001",
     "homepage": "./",
     "scripts": {
         "api": "nodemon -r esm api/server.js",
@@ -45,11 +15,46 @@
         "start:dev": "concurrently -k \"yarn start\"  \"yarn run api\"",
         "electron": "wait-on tcp:3000 && electron ."
     },
-    "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest"
-        ]
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/khadar254/kowthar.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/khadar254/kowthar/issues"
+    },
+    "dependencies": {
+        "@chakra-ui/react": "^1.6.4",
+        "@emotion/react": "^11",
+        "@emotion/styled": "^11",
+        "@fontsource/fira-sans": "^4.4.5",
+        "@mongoosejs/double": "^0.2.0",
+        "axios": "^0.21.1",
+        "bcryptjs": "^2.4.3",
+        "compression": "^1.7.4",
+        "concurrently": "^6.2.0",
+        "cors": "^2.8.5",
+        "dotenv": "^10.0.0",
+        "electron": "^13.1.5",
+        "esm": "^3.2.25",
+        "express": "^4.17.1",
+        "formik": "^2.2.9",
+        "framer-motion": "^4",
+        "joi": "^17.4.0",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^5.13.0",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2",
+        "react-icons": "^4.2.0",
+        "react-router-dom": "^5.2.0",
+        "react-scripts": "^4.0.3",
+        "web-vitals": "^2.0.1",
+        "yup": "^0.32.9"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.9",
+        "wait-on": "^6.0.0"
     },
     "browserslist": {
         "production": [
@@ -62,12 +67,5 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    },
-    "devDependencies": {
-        "concurrently": "^6.2.0",
-        "electron": "^13.1.1",
-        "electron-is-dev": "^2.0.0",
-        "nodemon": "^2.0.7",
-        "wait-on": "^5.3.0"
     }
 }

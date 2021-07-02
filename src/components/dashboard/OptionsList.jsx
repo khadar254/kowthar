@@ -11,6 +11,11 @@ function OptionsList() {
             link: '/users',
             name: 'Manage Users',
         },
+        {
+            image: '/images/usermanage.svg',
+            link: '/inventory',
+            name: 'Manage Inventory',
+        },
     ]
     return (
         <Box mt='2rem' p='20px 0' width='100%' height='auto'>

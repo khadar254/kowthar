@@ -17,6 +17,7 @@ router.post('/login', async (req, res) => {
         return res.status(400).json({ message: error.details[0].message })
 
     // check if email exists
+    console.log(req.body)
     const existingUser = await user.findOne({ username: req.body.username })
 
     if (!existingUser)
@@ -62,6 +63,7 @@ router.post('/createuser', async (req, res) => {
     const salt = await genSalt(12)
     const hashPass = await hash(req.body.password, salt)
 
+    console.log({ body: req.body })
     // create new user
     const newUser = new user({
         ...req.body,

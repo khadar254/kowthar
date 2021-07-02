@@ -107,7 +107,7 @@ export const AuthReducer = (state, action) => {
         case types.UPDATE_USER_FAIL:
             return {
                 ...state,
-                deleting: false,
+                updating: false,
             }
         case types.DELETE_USER_REQUEST:
             return {
