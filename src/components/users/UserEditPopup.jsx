@@ -47,7 +47,7 @@ function UserEditPopup({ isOpen, onClose, user }) {
 
                     delete update.confirmpass
 
-                    updateUser(update, toEdit?._id)
+                    updateUser(user?._id, update)
 
                     onClose()
                 }}>

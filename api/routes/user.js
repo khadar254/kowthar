@@ -62,7 +62,6 @@ router.post('/createuser', async (req, res) => {
     const salt = await genSalt(12)
     const hashPass = await hash(req.body.password, salt)
 
-    console.log({ body: req.body })
     // create new user
     const newUser = new user({
         ...req.body,
