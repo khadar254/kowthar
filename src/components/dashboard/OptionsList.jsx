@@ -7,6 +7,11 @@ function OptionsList() {
     const { user } = useAuth()
     const options = [
         {
+            image: '/images/salesmanage.svg',
+            link: '/sales',
+            name: 'Manage Sales',
+        },
+        {
             image: '/images/usermanage.svg',
             link: '/users',
             name: 'Manage Users',
@@ -20,6 +25,11 @@ function OptionsList() {
             image: '/images/inventorymanage.svg',
             link: '/inventory',
             name: 'Manage Inventory',
+        },
+        {
+            image: '/images/customermanage.svg',
+            link: '/customers',
+            name: 'Manage Customers',
         },
     ]
     return (
@@ -65,16 +75,25 @@ function OptionsList() {
                                 to={{ pathname: option.link }}
                                 colorScheme='cyan'
                                 color='#fff'>
-                                Show More
+                                Manage
+                            </Button>
+                        ) : user?.role === 'sales' &&
+                          option.name === 'Manage Sales' ? (
+                            <Button
+                                as={Link}
+                                height='3rem'
+                                to={{ pathname: option.link }}
+                                colorScheme='cyan'
+                                color='#fff'>
+                                Manage
                             </Button>
                         ) : (
                             <Button
                                 height='3rem'
                                 bg='transparent'
                                 color='#fff'
-                                visibility='hidden'>
-                                Show More
-                            </Button>
+                                visibility='hidden'
+                            />
                         )}
                     </Box>
                 ))}

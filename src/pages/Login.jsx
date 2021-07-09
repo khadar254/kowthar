@@ -43,7 +43,12 @@ function Login() {
                 borderRadius='20px'
                 transform='translate(-50%, -50%)'
                 p='30px'>
-                <IconButton as={Link} to='/' icon={<FaChevronLeft />} />
+                <IconButton
+                    as={Link}
+                    to='/'
+                    icon={<FaChevronLeft />}
+                    borderRadius='10px'
+                />
                 <Heading color='#fff' my='2rem'>
                     Access Dashboard
                 </Heading>

@@ -1,35 +1,13 @@
 import { Router } from 'express'
 import { authVerify } from '../middleware/authVerify'
-import { product } from '../models/productModel'
+import { customer } from '../models/customerModel'
 
 const router = Router()
 
-router.post('/', authVerify, async (req, res) => {
+router.get('/', async (_, res) => {
     try {
-        const data = req.body
-
-        const newProduct = new product({
-            ...data,
-        })
-        const item = await newProduct.save()
-
-        return res.status(201).json({ message: 'Product created', item })
-    } catch (error) {
-        return res
-            .status(400)
-            .json({ message: `Something went wrong: ${error}` })
-    }
-})
-
-router.get('/', authVerify, async (_, res) => {
-    try {
-        const items = await product.find({}).sort({ created: 'desc' })
-
-        if (items.length === 0) {
-            return res.status(404).json({ message: 'products not found' })
-        } else {
-            return res.status(200).json({ items })
-        }
+        const items = await customer.find({}).sort({ created: 'desc' })
+        return res.status(200).json({ items })
     } catch (error) {
         return res
             .status(400)
@@ -40,10 +18,10 @@ router.get('/', authVerify, async (_, res) => {
 router.get('/:id', authVerify, async (req, res) => {
     try {
         const { id } = req.params
-        const item = await product.findById(id)
+        const item = await customer.findById(id)
 
         if (!item) {
-            return res.status(404).json({ message: 'product not found' })
+            return res.status(404).json({ message: 'customer not found' })
         } else {
             return res.status(200).json({ item })
         }
@@ -63,16 +41,16 @@ router.put('/:id', authVerify, async (req, res) => {
             updated: Date.now(),
         }
 
-        const item = await product.findByIdAndUpdate(
+        const item = await customer.findByIdAndUpdate(
             id,
             { $set: update },
             { new: true }
         )
 
         if (!item) {
-            return res.status(400).json({ message: 'product not found' })
+            return res.status(400).json({ message: 'customer not found' })
         } else {
-            return res.status(200).json({ message: 'product updated', item })
+            return res.status(200).json({ message: 'customer updated', item })
         }
     } catch (error) {
         return res
@@ -85,12 +63,12 @@ router.delete('/:id', authVerify, async (req, res) => {
     try {
         const { id } = req.params
 
-        const item = await product.findByIdAndDelete(id)
+        const item = await customer.findByIdAndDelete(id)
 
         if (!item) {
-            return res.status(400).json({ message: 'user not found' })
+            return res.status(400).json({ message: 'customer not found' })
         } else {
-            return res.status(200).json({ message: 'ok', item })
+            return res.status(200).json({ message: 'customer deleted', item })
         }
     } catch (error) {
         return res
@@ -99,4 +77,4 @@ router.delete('/:id', authVerify, async (req, res) => {
     }
 })
 
-export const productRoutes = router
+export const customerRoutes = router

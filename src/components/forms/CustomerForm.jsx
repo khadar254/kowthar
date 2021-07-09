@@ -9,7 +9,7 @@ import {
     Spinner,
 } from '@chakra-ui/react'
 
-function ProductForm({ Field, errors, touched, submit, loading, Edit }) {
+function CustomerForm({ Field, errors, touched, submit, loading, Edit }) {
     return (
         <Box as='form' onSubmit={submit}>
             <FormControl
@@ -22,7 +22,7 @@ function ProductForm({ Field, errors, touched, submit, loading, Edit }) {
                     height='3rem'
                     _placeholder={{ color: '#555' }}
                     _focus={{ outline: 'none' }}
-                    placeholder='product name'
+                    placeholder='someone'
                     type='text'
                     name='name'
                 />
@@ -31,21 +31,21 @@ function ProductForm({ Field, errors, touched, submit, loading, Edit }) {
                 </FormErrorMessage>
             </FormControl>
             <FormControl
-                id='price'
+                id='number'
                 my='.5rem'
-                isInvalid={errors.price && touched.price}>
-                <FormLabel color='#333'>Price</FormLabel>
+                isInvalid={errors.number && touched.number}>
+                <FormLabel color='#333'>Customer Number</FormLabel>
                 <Field
                     as={Input}
                     height='3rem'
                     _placeholder={{ color: '#555' }}
                     _focus={{ outline: 'none' }}
-                    placeholder='your price'
-                    type='number'
-                    name='price'
+                    placeholder='+25713456533'
+                    type='text'
+                    name='number'
                 />
                 <FormErrorMessage>
-                    {errors.price && touched.price && errors.price}
+                    {errors.number && touched.number && errors.number}
                 </FormErrorMessage>
             </FormControl>
 
@@ -63,10 +63,10 @@ function ProductForm({ Field, errors, touched, submit, loading, Edit }) {
                 type='submit'
                 isLoading={loading}
                 spinner={<Spinner color='cyan.500' size='md' />}>
-                {Edit ? 'Edit Product' : 'Create Product'}
+                {Edit ? 'Edit Customer' : 'Create Customer'}
             </Button>
         </Box>
     )
 }
 
-export default ProductForm
+export default CustomerForm

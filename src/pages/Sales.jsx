@@ -4,36 +4,35 @@ import {
     Heading,
     HStack,
     Divider,
-    IconButton,
     Button,
+    IconButton,
     useDisclosure,
 } from '@chakra-ui/react'
 import Navbar from '../components/common/Navbar'
 import { FaChevronLeft } from 'react-icons/fa'
 import { useHistory } from 'react-router-dom'
-import { useProduct } from '../contexts/ProductContext'
-import { useAuth } from '../contexts/AuthContext'
-import ProductPopup from '../components/products/ProductPopup'
-import ProductList from '../components/products/ProductList'
+import { useSales } from '../contexts/SalesContext'
+import SalesOrderList from '../components/sales/SalesOrderList'
+import SalesOrderPopup from '../components/sales/SalesPopup'
 
-function Product() {
+function Sales() {
     const history = useHistory()
-    const { isOpen, onClose, onOpen } = useDisclosure()
-    const { products, fetchProducts } = useProduct()
-    const { user } = useAuth()
+    const { onClose, isOpen, onOpen } = useDisclosure()
+    const { sales, fetchSales } = useSales()
 
     useEffect(() => {
-        if (user?.role !== 'admin') {
-            history.push('/dashboard')
-        } else {
-            fetchProducts()
-        }
-    }, [user?.role, history])
+        fetchSales()
+    }, [])
     return (
         <>
             <Navbar />
-            <Box height='93vh' overflow='hidden' width='100%' bg='#eee'>
-                <ProductPopup onClose={onClose} isOpen={isOpen} />
+            <SalesOrderPopup isOpen={isOpen} onClose={onClose} />
+            <Box
+                height='auto'
+                minH='93vh'
+                overflow='hidden'
+                width='100%'
+                bg='#eee'>
                 <Box
                     mx='auto'
                     width={['100%', '100%', '90%', '80%']}
@@ -49,7 +48,7 @@ function Product() {
                                 _hover={{ bg: 'cyan.700' }}
                                 mr='2rem'
                             />
-                            <Heading>Manage Products</Heading>
+                            <Heading>Manage Sales</Heading>
                         </HStack>
                         <Button
                             bg='cyan.600'
@@ -60,15 +59,15 @@ function Product() {
                             borderRadius='10px'
                             _focus={{ outline: 'none' }}
                             _hover={{ bg: 'cyan.600' }}>
-                            New Product
+                            New Sales Order
                         </Button>
                     </HStack>
                     <Divider my='1rem' border='2px solid #eee' />
-                    <ProductList products={products} />
+                    <SalesOrderList salesOrders={sales} />
                 </Box>
             </Box>
         </>
     )
 }
 
-export default Product
+export default Sales

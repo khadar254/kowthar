@@ -7,7 +7,9 @@ import { keys } from './keys'
 
 // api endpoints
 import { authRoutes } from './routes/user'
+import { salesRoutes } from './routes/sales'
 import { productRoutes } from './routes/product'
+import { customerRoutes } from './routes/customer'
 import { inventoryRoutes } from './routes/inventory'
 
 // create express app
@@ -64,7 +66,9 @@ mongoose.connect(
 )
 
 app.use('/api/auth/', authRoutes)
+app.use('/api/sales/', salesRoutes)
 app.use('/api/products/', productRoutes)
+app.use('/api/customers/', customerRoutes)
 app.use('/api/inventory/', inventoryRoutes)
 
 const port = process.env.PORT || 3001

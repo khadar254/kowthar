@@ -9,19 +9,24 @@ import {
     Stack,
 } from '@chakra-ui/react'
 
-const ProductListItem = lazy(() => import('./ProductListItem'))
+const ProductListItem = lazy(() => import('../products/ProductListItem'))
 
-function ProductList({ products }) {
+function SalesDetailProductsList({ products }) {
     return (
-        <Box as={Stack} direction='row' justifyContent='space-between'>
-            <Table flex='2' variant='simple'>
+        <Box
+            as={Stack}
+            direction='row'
+            justifyContent='space-between'
+            p='0 20px'>
+            <Table flex='2' variant='striped'>
                 <TableCaption fontSize='1rem' color='#777'>
-                    Products table
+                    SalesProducts table
                 </TableCaption>
                 <Thead>
                     <Th fontSize='1rem'>Name</Th>
                     <Th fontSize='1rem'>Price (KES)</Th>
                     <Th fontSize='1rem'>Quantity</Th>
+                    <Th fontSize='1rem'>Actions</Th>
                 </Thead>
                 <Tbody>
                     {products &&
@@ -38,4 +43,4 @@ function ProductList({ products }) {
     )
 }
 
-export default ProductList
+export default SalesDetailProductsList

@@ -84,11 +84,10 @@ function ProductProvider({ children }) {
 
             setMessage(data.message)
         } catch (error) {
-            const { data } = error.response
-
+            console.log(error)
             dispatch({ type: types.UPDATE_PRODUCT_FAIL })
             // show error
-            setError(data.message)
+            setError(error?.response.data.message)
         }
     }
     async function deleteProduct(id) {

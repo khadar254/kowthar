@@ -10,6 +10,7 @@ import { AuthReducer } from './reducers/AuthReducer'
 import axios from 'axios'
 import { config } from '../utils/axiosConfig'
 import { useAlert } from './AlertsContext'
+import { useHistory } from 'react-router-dom'
 
 const AuthContext = createContext({})
 
@@ -28,6 +29,7 @@ const initialState = {
 }
 
 function AuthProvider({ children }) {
+    const history = useHistory()
     const [state, dispatch] = useReducer(AuthReducer, initialState)
 
     const { setMessage, setError } = useAlert()

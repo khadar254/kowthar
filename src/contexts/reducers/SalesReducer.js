@@ -1,75 +1,94 @@
 import * as types from '../types'
 
-export const ProductReducer = (state, action) => {
+export const SalesReducer = (state, action) => {
     const { type, payload } = action
     switch (type) {
-        case types.CREATE_PRODUCT_REQUEST:
+        case types.CREATE_SALES_REQUEST:
             return {
                 ...state,
                 creating: true,
             }
-        case types.CREATE_PRODUCT_SUCCESS:
+
+        case types.CREATE_SALES_SUCCESS:
             return {
                 ...state,
                 creating: false,
-                products: [payload.item, ...state.products],
+                sales: [payload.item, ...state.sales],
             }
-        case types.CREATE_PRODUCT_FAIL:
+        case types.CREATE_SALES_FAIL:
             return {
                 ...state,
                 creating: false,
             }
-        case types.FETCH_PRODUCTS_REQUEST:
+
+        case types.FETCH_SALES_REQUEST:
             return {
                 ...state,
                 fetching: true,
             }
 
-        case types.FETCH_PRODUCTS_SUCCESS:
+        case types.FETCH_SALES_SUCCESS:
             return {
                 ...state,
                 fetching: false,
-                products: payload.items,
+                sales: payload.items,
             }
-        case types.FETCH_PRODUCTS_FAIL:
+        case types.FETCH_SALES_FAIL:
+            return {
+                ...state,
+                fetching: false,
+            }
+        case types.FETCH_SALES_BY_NAME_REQUEST:
+            return {
+                ...state,
+                fetching: true,
+            }
+
+        case types.FETCH_SALES_BY_NAME_SUCCESS:
+            return {
+                ...state,
+                fetching: false,
+                sale: payload.item,
+            }
+        case types.FETCH_SALES_BY_NAME_FAIL:
             return {
                 ...state,
                 fetching: false,
             }
 
-        case types.UPDATE_PRODUCT_REQUEST:
+        case types.UPDATE_SALES_REQUEST:
             return {
                 ...state,
                 updating: true,
             }
-        case types.UPDATE_PRODUCT_SUCCESS:
+        case types.UPDATE_SALES_SUCCESS:
             return {
                 ...state,
                 updating: false,
-                products: state.products.map((prod) => {
+                sales: state.sales.map((prod) => {
                     if (prod._id === payload.item._id) {
                         prod = payload.item
                     }
                     return prod
                 }),
             }
-        case types.UPDATE_PRODUCT_FAIL:
+        case types.UPDATE_SALES_FAIL:
             return {
                 ...state,
                 updating: false,
             }
-        case types.DELETE_PRODUCT_REQUEST:
+        case types.DELETE_SALES_REQUEST:
             return {
                 ...state,
                 deleting: true,
             }
-        case types.DELETE_PRODUCT_SUCCESS:
+        case types.DELETE_SALES_SUCCESS:
             return {
                 ...state,
                 deleting: false,
-                products: state.products.filter((prod) => prod._id !== payload),
+                sales: state.sales.filter((prod) => prod._id !== payload),
             }
-        case types.DELETE_PRODUCT_FAIL:
+        case types.DELETE_SALES_FAIL:
             return {
                 ...state,
                 deleting: false,

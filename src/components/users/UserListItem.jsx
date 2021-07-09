@@ -3,14 +3,27 @@ import { Tr, Td, IconButton, useDisclosure } from '@chakra-ui/react'
 import { FaTrashAlt, FaPencilAlt, FaTimesCircle } from 'react-icons/fa'
 import { useAuth } from '../../contexts/AuthContext'
 import UserEditPopup from './UserEditPopup'
+import DeleteDrawer from '../common/DeleteDrawer'
 
 function UserListItem({ user }) {
-    const { deleteUser } = useAuth()
+    const { deleteUser, user: currentUser, deleting } = useAuth()
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const {
+        isOpen: delIsOpen,
+        onOpen: delOpen,
+        onClose: delClose,
+    } = useDisclosure()
 
     return (
         <>
             <UserEditPopup isOpen={isOpen} onClose={onClose} user={user} />
+            <DeleteDrawer
+                isOpen={delIsOpen}
+                onClose={delClose}
+                deleteFunc={deleteUser}
+                id={user?._id}
+                loading={deleting}
+            />
             <Tr>
                 <Td>{user?.name}</Td>
                 <Td>{user?.username}</Td>
@@ -38,12 +51,12 @@ function UserListItem({ user }) {
                         />
                     )}
 
-                    {isOpen ? null : (
+                    {currentUser?.username === user?.username ? null : (
                         <IconButton
                             ml='0.5rem'
                             _focus={{ outine: 'none' }}
                             borderRadius='10px'
-                            onClick={() => deleteUser(user?._id)}
+                            onClick={delOpen}
                             icon={<FaTrashAlt />}
                             colorScheme='red'
                         />
