@@ -16,7 +16,12 @@ function Customers() {
     return (
         <>
             <Navbar />
-            <Box height='93vh' overflow='hidden' width='100%' bg='#eee'>
+            <Box
+                height='auto'
+                minHeight='93vh'
+                overflow='hidden'
+                width='100%'
+                bg='#eee'>
                 <Box
                     mx='auto'
                     width={['100%', '100%', '90%', '80%']}

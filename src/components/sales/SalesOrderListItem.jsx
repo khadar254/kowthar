@@ -4,8 +4,10 @@ import { FaTrashAlt, FaReceipt } from 'react-icons/fa'
 import { useSales } from '../../contexts/SalesContext'
 import DeleteDrawer from '../common/DeleteDrawer'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../../contexts/AuthContext'
 
 function SalesOrderListItem({ sale }) {
+    const { user } = useAuth()
     const { deleting, deleteSales } = useSales()
 
     const {
@@ -50,16 +52,20 @@ function SalesOrderListItem({ sale }) {
                             color='#fff'
                         />
                     </Tooltip>
-                    <IconButton
-                        mx='1rem'
-                        icon={<FaTrashAlt />}
-                        colorScheme='red'
-                        onClick={delOpen}
-                        _focus={{ outline: 'none' }}
-                        _active={{ outline: 'none' }}
-                        borderRadius='10px'
-                        color='#fff'
-                    />
+
+                    {user?.username === sale.salesBy ||
+                    user?.role === 'admin' ? (
+                        <IconButton
+                            mx='1rem'
+                            icon={<FaTrashAlt />}
+                            colorScheme='red'
+                            onClick={delOpen}
+                            _focus={{ outline: 'none' }}
+                            _active={{ outline: 'none' }}
+                            borderRadius='10px'
+                            color='#fff'
+                        />
+                    ) : null}
                 </Td>
             </Tr>
         </>

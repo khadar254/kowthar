@@ -42,6 +42,7 @@ function CustomerListItem({ customer }) {
                         onClick={onOpen}
                         color='#fff'
                     />
+
                     <IconButton
                         mx='1rem'
                         icon={<FaTrashAlt />}

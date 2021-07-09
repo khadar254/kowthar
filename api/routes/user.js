@@ -100,9 +100,16 @@ router.get('/users', authVerify, async (_, res) => {
 router.put('/user/:id', authVerify, async (req, res) => {
     try {
         const { id } = req.params
+        const data = req.body
+
+        if (data.password) {
+            const salt = await genSalt(12)
+            const hashPass = await hash(req.body.password, salt)
+            data.password = hashPass
+        }
 
         const update = {
-            ...req.body,
+            ...data,
             updated: Date.now(),
         }
 

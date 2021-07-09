@@ -9,7 +9,12 @@ function Dashboard() {
     return (
         <>
             <Navbar />
-            <Box bg='#eee' width='100%' height='93vh' overflow='hidden'>
+            <Box
+                bg='#eee'
+                width='100%'
+                height='auto'
+                minHeight='93vh'
+                overflow='hidden'>
                 <Box mx='auto' width='80%' height='auto' minH='60vh' p='20px 0'>
                     <Stack
                         direction='column'

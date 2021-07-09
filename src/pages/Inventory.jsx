@@ -32,7 +32,12 @@ function Inventory() {
     return (
         <>
             <Navbar />
-            <Box height='93vh' overflow='hidden' width='100%' bg='#eee'>
+            <Box
+                height='auto'
+                minHeight='93vh'
+                overflow='hidden'
+                width='100%'
+                bg='#eee'>
                 <InventoryPopup onClose={onClose} isOpen={isOpen} />
                 <Box
                     mx='auto'
