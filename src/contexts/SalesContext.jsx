@@ -78,8 +78,6 @@ function SalesProvider({ children }) {
                 config()
             )
 
-            console.log(data)
-
             dispatch({
                 type: types.FETCH_SALES_BY_NAME_SUCCESS,
                 payload: data,
@@ -114,7 +112,7 @@ function SalesProvider({ children }) {
         }
     }
 
-    async function addProductToOrder(product) {
+    async function addProductToOrder(id, product) {
         try {
             dispatch({
                 type: types.UPDATE_SALES_REQUEST,
@@ -138,7 +136,7 @@ function SalesProvider({ children }) {
         }
     }
 
-    async function updateProductToOrder(name, update) {
+    async function updateProductToOrder(id, name, update) {
         try {
             dispatch({
                 type: types.UPDATE_SALES_REQUEST,
@@ -163,7 +161,7 @@ function SalesProvider({ children }) {
         }
     }
 
-    async function deleteProductToOrder(id, name, update) {
+    async function deleteProductToOrder(id, name) {
         try {
             dispatch({
                 type: types.UPDATE_SALES_REQUEST,
@@ -171,7 +169,7 @@ function SalesProvider({ children }) {
 
             const { data } = await axios.put(
                 `/api/sales/deleteproduct/${id}/${name}`,
-                update,
+                {},
                 config()
             )
 
@@ -207,6 +205,30 @@ function SalesProvider({ children }) {
             setError(data.message)
         }
     }
+    async function calculateGrandtotal(id) {
+        try {
+            dispatch({
+                type: types.UPDATE_SALES_REQUEST,
+            })
+
+            const { data } = await axios.put(
+                `/api/sales/completesale/${id}`,
+                {},
+                config()
+            )
+
+            dispatch({
+                type: types.UPDATE_SALES_SUCCESS,
+                payload: data,
+            })
+
+            setMessage(data.message)
+        } catch (error) {
+            dispatch({ type: types.UPDATE_SALES_FAIL })
+            // show error
+            setError(error?.response.data.message)
+        }
+    }
 
     const value = {
         ...state,
@@ -218,6 +240,7 @@ function SalesProvider({ children }) {
         addProductToOrder,
         updateProductToOrder,
         deleteProductToOrder,
+        calculateGrandtotal,
     }
     return (
         <SalesContext.Provider value={value}>{children}</SalesContext.Provider>

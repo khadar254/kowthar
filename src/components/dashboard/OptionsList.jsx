@@ -10,26 +10,31 @@ function OptionsList() {
             image: '/images/salesmanage.svg',
             link: '/sales',
             name: 'Manage Sales',
+            show: 'admin & sales',
         },
         {
             image: '/images/usermanage.svg',
             link: '/users',
             name: 'Manage Users',
+            show: 'admin',
         },
         {
             image: '/images/productmanage.svg',
             link: '/products',
             name: 'Manage Products',
+            show: 'admin',
         },
         {
             image: '/images/inventorymanage.svg',
             link: '/inventory',
             name: 'Manage Inventory',
+            show: 'admin',
         },
         {
             image: '/images/customermanage.svg',
             link: '/customers',
             name: 'Manage Customers',
+            show: 'admin',
         },
     ]
     return (
@@ -51,6 +56,9 @@ function OptionsList() {
                         justifyContent='space-between'
                         height='30vh'
                         shadow='md'
+                        hidden={
+                            user?.role === 'sales' && option.show === 'admin'
+                        }
                         p='20px 10px'
                         borderRadius='20px'
                         width='100%'>
@@ -68,33 +76,14 @@ function OptionsList() {
                             {option.name}
                         </Heading>
 
-                        {user?.role === 'admin' ? (
-                            <Button
-                                as={Link}
-                                height='3rem'
-                                to={{ pathname: option.link }}
-                                colorScheme='cyan'
-                                color='#fff'>
-                                Manage
-                            </Button>
-                        ) : user?.role === 'sales' &&
-                          option.name === 'Manage Sales' ? (
-                            <Button
-                                as={Link}
-                                height='3rem'
-                                to={{ pathname: option.link }}
-                                colorScheme='cyan'
-                                color='#fff'>
-                                Manage
-                            </Button>
-                        ) : (
-                            <Button
-                                height='3rem'
-                                bg='transparent'
-                                color='#fff'
-                                visibility='hidden'
-                            />
-                        )}
+                        <Button
+                            as={Link}
+                            height='3rem'
+                            to={{ pathname: option.link }}
+                            colorScheme='cyan'
+                            color='#fff'>
+                            Manage
+                        </Button>
                     </Box>
                 ))}
             </Grid>

@@ -39,6 +39,8 @@ function InventoryProvider({ children }) {
                 type: types.CREATE_INVENTORY_SUCCESS,
                 payload: data,
             })
+
+            setMessage(data.message)
         } catch (error) {
             const { data } = error.response
             dispatch({ type: types.CREATE_INVENTORY_FAIL })

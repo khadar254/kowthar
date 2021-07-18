@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react'
 import { useProduct } from '../../contexts/ProductContext'
 
-function ProductForm({ Field, errors, touched, submit, loading }) {
+function InventoryForm({ Field, errors, touched, submit, loading }) {
     const { products, fetchProducts } = useProduct()
 
     useEffect(() => {
@@ -75,15 +75,14 @@ function ProductForm({ Field, errors, touched, submit, loading }) {
                 fontSize='1.2rem'
                 _hover={{ bg: 'cyan.700' }}
                 _focus={{ outline: 'none' }}
-                disabled={loading}
+                isDisabled={loading}
                 borderRadius='10px'
                 type='submit'
-                isLoading={loading}
-                spinner={<Spinner color='cyan.500' size='md' />}>
+                isLoading={loading}>
                 Add to Inventory
             </Button>
         </Box>
     )
 }
 
-export default ProductForm
+export default InventoryForm

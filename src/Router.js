@@ -10,6 +10,7 @@ import Product from './pages/Products'
 import Customers from './pages/Customers'
 import Sales from './pages/Sales'
 import SalesDetails from './pages/SalesDetails'
+import Receipt from './pages/Receipt'
 
 function AppRouter() {
     return (
@@ -28,6 +29,7 @@ function AppRouter() {
                     path='/sale/:name'
                     component={SalesDetails}
                 />
+                <PrivateRoute exact path='/receipt/:name' component={Receipt} />
                 <Route exact path='*' component={NotFound} />
             </Switch>
         </Router>

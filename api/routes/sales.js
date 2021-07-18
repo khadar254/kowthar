@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { authVerify } from '../middleware/authVerify'
 import { sales } from '../models/salesOrderModel'
 import { customer } from '../models/customerModel'
+import { product } from '../models/productModel'
 import { calculateDiscountedPrice, calculateGrandTotal } from '../functions'
 
 const router = Router()
@@ -27,6 +28,13 @@ router.post('/', async (req, res) => {
             })
 
             await newCustomer.save()
+        }
+
+        if (existingCustomer) {
+            await customer.findOneAndUpdate(
+                { number: data.customer.number },
+                { $inc: { transactions: 1 } }
+            )
         }
 
         const item = await newSalesOrder.save()
@@ -145,6 +153,12 @@ router.put('/addproduct/:id', async (req, res) => {
             { new: true }
         )
 
+        // reduce the quantity of the product
+        await product.findOneAndUpdate(
+            { name: data.name },
+            { $inc: { quantity: -data.quantity } }
+        )
+
         return res
             .status(200)
             .json({ message: `${data.name} added to sales order`, item })
@@ -158,7 +172,7 @@ router.put('/addproduct/:id', async (req, res) => {
 router.put('/updateproduct/:salesId/:prodName', async (req, res) => {
     try {
         const { salesId, prodName } = req.params
-        const data = req.body
+        let data = req.body
 
         const salesOrder = await sales.findById(salesId)
 
@@ -166,16 +180,41 @@ router.put('/updateproduct/:salesId/:prodName', async (req, res) => {
             return res.status(404).json({ message: 'Sales order not found' })
         }
 
-        const { products } = salesOrder
+        let { products } = salesOrder
 
-        const newProducts = await products.map((prod) => {
+        let prodToUpdate = products.find((prod) => prod.name === prodName)
+
+        console.log('product to update', prodToUpdate)
+
+        if (data.quantity > prodToUpdate.quantity) {
+            // the quantity increased
+            const increaseBy = data.quantity - prodToUpdate.quantity
+
+            await product.findOneAndUpdate(
+                { name: prodName },
+                { $inc: { quantity: -increaseBy } }
+            )
+        }
+        if (data.quantity < prodToUpdate.quantity) {
+            // the quantity decreased
+            const decreasedBy = prodToUpdate.quantity - data.quantity
+
+            await product.findOneAndUpdate(
+                { name: prodName },
+                { $inc: { quantity: decreasedBy } }
+            )
+        }
+
+        let newProducts = products.map((prod) => {
             if (prod.name === prodName) {
-                prod = { ...prod, ...data }
+                prod = data
             }
+
             return prod
         })
 
         const update = {
+            status: 'in progress',
             products: [...newProducts],
             updated: Date.now(),
         }
@@ -186,7 +225,7 @@ router.put('/updateproduct/:salesId/:prodName', async (req, res) => {
             { new: true }
         )
 
-        return res.status(200).json({ message: `Products updated`, item })
+        return res.status(200).json({ message: `Product updated`, item })
     } catch (error) {
         return res
             .status(400)
@@ -206,12 +245,24 @@ router.put('/deleteproduct/:salesId/:prodName', async (req, res) => {
 
         const { products } = salesOrder
 
-        const newProducts = await products.filter(
+        await products.map(async (prod) => {
+            if (prod.name === prodName) {
+                await product.findOneAndUpdate(
+                    { name: prodName },
+                    { $inc: { quantity: prod.quantity } }
+                )
+            }
+
+            return prod
+        })
+
+        const filteredProducts = await products.filter(
             (prod) => prod.name !== prodName
         )
 
         const update = {
-            products: [...newProducts],
+            status: 'in progress',
+            products: [...filteredProducts],
             updated: Date.now(),
         }
 
@@ -231,7 +282,7 @@ router.put('/deleteproduct/:salesId/:prodName', async (req, res) => {
     }
 })
 
-router.put('/completesale/:salesId/', async (req, res) => {
+router.put('/completesale/:salesId', async (req, res) => {
     try {
         const { salesId } = req.params
 
@@ -253,7 +304,6 @@ router.put('/completesale/:salesId/', async (req, res) => {
         }
 
         const update = {
-            products: [...newProducts],
             grandTotal,
             status: 'completed',
             updated: Date.now(),
@@ -265,7 +315,7 @@ router.put('/completesale/:salesId/', async (req, res) => {
             { new: true }
         )
 
-        return res.status(200).json({ message: `Calculations compelete`, item })
+        return res.status(200).json({ message: `Sales order updated`, item })
     } catch (error) {
         return res
             .status(400)

@@ -1,10 +1,11 @@
 import React from 'react'
 import { Tr, Td, IconButton, useDisclosure, Tooltip } from '@chakra-ui/react'
-import { FaTrashAlt, FaReceipt } from 'react-icons/fa'
+import { FaTrashAlt, FaReceipt, FaPencilAlt } from 'react-icons/fa'
 import { useSales } from '../../contexts/SalesContext'
 import DeleteDrawer from '../common/DeleteDrawer'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
+import SalesAddDiscount from './SalesAddDiscount'
 
 function SalesOrderListItem({ sale }) {
     const { user } = useAuth()
@@ -15,9 +16,15 @@ function SalesOrderListItem({ sale }) {
         onClose: delClose,
         onOpen: delOpen,
     } = useDisclosure()
+    const { isOpen, onClose, onOpen } = useDisclosure()
 
     return (
         <>
+            <SalesAddDiscount
+                isOpen={isOpen}
+                onClose={onClose}
+                saleId={sale?._id}
+            />
             <DeleteDrawer
                 deleteFunc={deleteSales}
                 id={sale?._id}
@@ -34,29 +41,23 @@ function SalesOrderListItem({ sale }) {
                 <Td>{sale?.status}</Td>
                 <Td>{sale?.salesBy}</Td>
                 <Td>
-                    <Tooltip
-                        hasArrow
-                        position='top'
-                        borderRadius='3px'
-                        label='View receipt'>
+                    {user?.username === sale.salesBy ||
+                    user?.role === 'admin' ? (
                         <IconButton
-                            icon={<FaReceipt />}
+                            mx='0.5rem'
+                            icon={<FaPencilAlt />}
                             colorScheme='cyan'
-                            borderRadius='10px'
-                            isDisabled={
-                                sale?.status === 'new' ||
-                                sale?.status === 'in progress'
-                            }
+                            onClick={onOpen}
                             _focus={{ outline: 'none' }}
                             _active={{ outline: 'none' }}
+                            borderRadius='10px'
                             color='#fff'
                         />
-                    </Tooltip>
+                    ) : null}
 
                     {user?.username === sale.salesBy ||
                     user?.role === 'admin' ? (
                         <IconButton
-                            mx='1rem'
                             icon={<FaTrashAlt />}
                             colorScheme='red'
                             onClick={delOpen}

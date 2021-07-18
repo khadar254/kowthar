@@ -15,6 +15,7 @@ import { useInventory } from '../contexts/InventoryContext'
 import { useAuth } from '../contexts/AuthContext'
 import InventoryPopup from '../components/inventory/InventoryPopup'
 import InventoryList from '../components/inventory/InventoryList'
+import ExportExcel from '../components/common/ExportExcel'
 
 function Inventory() {
     const history = useHistory()
@@ -29,6 +30,8 @@ function Inventory() {
             fetchInventory()
         }
     }, [user?.role, history])
+
+    const fileName = 'kowthar_hardware_inventory'
     return (
         <>
             <Navbar />
@@ -56,17 +59,21 @@ function Inventory() {
                             />
                             <Heading>Manage Inventory</Heading>
                         </HStack>
-                        <Button
-                            bg='cyan.600'
-                            width='10%'
-                            onClick={onOpen}
-                            height='3rem'
-                            color='#fff'
-                            borderRadius='10px'
-                            _focus={{ outline: 'none' }}
-                            _hover={{ bg: 'cyan.600' }}>
-                            New Inventory
-                        </Button>
+                        <HStack>
+                            <ExportExcel data={inventory} filename={fileName} />
+                            <Button
+                                bg='cyan.600'
+                                width='auto'
+                                minWidth='10%'
+                                onClick={onOpen}
+                                height='3rem'
+                                color='#fff'
+                                borderRadius='10px'
+                                _focus={{ outline: 'none' }}
+                                _hover={{ bg: 'cyan.600' }}>
+                                New Inventory
+                            </Button>
+                        </HStack>
                     </HStack>
                     <Divider my='1rem' border='2px solid #eee' />
                     <InventoryList inventory={inventory} />

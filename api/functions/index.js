@@ -1,9 +1,8 @@
 // function to get the sum of values in an array
 export async function calculateGrandTotal(products) {
     // get the subtotals
-    const subtotals = products.map(
-        (product) => product.price * product.quantity
-    )
+
+    const subtotals = products.map((prod) => prod.productPrice * prod.quantity)
     // get the grandtotal
     const grandTotal = subtotals.reduce((red, acc) => {
         const total = red + acc

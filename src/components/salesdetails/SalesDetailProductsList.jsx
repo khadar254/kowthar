@@ -9,9 +9,11 @@ import {
     Stack,
 } from '@chakra-ui/react'
 
-const ProductListItem = lazy(() => import('../products/ProductListItem'))
+const SalesDetailProductListItem = lazy(() =>
+    import('./SalesDetailProductListItem')
+)
 
-function SalesDetailProductsList({ products }) {
+function SalesDetailProductsList({ sale }) {
     return (
         <Box
             as={Stack}
@@ -20,21 +22,25 @@ function SalesDetailProductsList({ products }) {
             p='0 20px'>
             <Table flex='2' variant='striped'>
                 <TableCaption fontSize='1rem' color='#777'>
-                    SalesProducts table
+                    Sales Products table
                 </TableCaption>
                 <Thead>
                     <Th fontSize='1rem'>Name</Th>
                     <Th fontSize='1rem'>Price (KES)</Th>
                     <Th fontSize='1rem'>Quantity</Th>
+                    <Th fontSize='1rem'>subtotal</Th>
                     <Th fontSize='1rem'>Actions</Th>
                 </Thead>
                 <Tbody>
-                    {products &&
-                        products.map((product) => (
+                    {sale?.products &&
+                        sale?.products.map((product) => (
                             <Suspense
-                                key={product?._id}
+                                key={product?.name}
                                 fallback={<h1>Loading ...</h1>}>
-                                <ProductListItem product={product} />
+                                <SalesDetailProductListItem
+                                    item={product}
+                                    saleId={sale?._id}
+                                />
                             </Suspense>
                         ))}
                 </Tbody>

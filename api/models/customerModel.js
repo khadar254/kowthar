@@ -9,7 +9,10 @@ const customerSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-
+    transactions: {
+        type: Number,
+        default: 1,
+    },
     created: {
         type: Date,
         default: Date.now,

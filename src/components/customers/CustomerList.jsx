@@ -25,6 +25,7 @@ function CustomerList({ customers }) {
                 <Thead>
                     <Th fontSize='1rem'>Name</Th>
                     <Th fontSize='1rem'>Number</Th>
+                    <Th fontSize='1rem'>Transactions</Th>
                     <Th fontSize='1rem'>Actions</Th>
                 </Thead>
                 <Tbody>

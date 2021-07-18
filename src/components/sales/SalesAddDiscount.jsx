@@ -2,44 +2,42 @@ import React from 'react'
 import { Formik, Field } from 'formik'
 import * as yup from 'yup'
 import DrawerMenu from '../common/DrawerMenu'
-import InventoryForm from '../forms/InventoryForm'
-import { useAuth } from '../../contexts/AuthContext'
-import { useInventory } from '../../contexts/InventoryContext'
+import { useSales } from '../../contexts/SalesContext'
+import DiscountForm from '../forms/DiscountForm'
 
-function InventoryPopup({ isOpen, onClose }) {
-    const { user } = useAuth()
-    const { createInventory, creating } = useInventory()
+function SalesAddDiscount({ isOpen, onClose, saleId }) {
+    const { updateSales, updating } = useSales()
     const validator = yup.object().shape({
-        productId: yup.string().required('Product is required'),
-        quantityAdded: yup.number().required('Quantity is required'),
+        discount: yup.string(),
     })
     return (
         <DrawerMenu
             isOpen={isOpen}
             onClose={onClose}
             size='md'
-            label='Adding a new inventory'>
+            label='Add or remove discount'>
             <Formik
                 initialValues={{
-                    productId: '',
-                    quantityAdded: 0,
-                    userName: user?.username,
+                    discount: '',
                 }}
                 validationSchema={validator}
                 onSubmit={(values, helpers) => {
-                    createInventory(values)
+                    const update = {
+                        ...values,
+                    }
+                    updateSales(saleId, update)
 
                     helpers.resetForm()
                     onClose()
                 }}>
                 {({ errors, handleSubmit, touched }) => (
                     <>
-                        <InventoryForm
+                        <DiscountForm
                             errors={errors}
                             touched={touched}
                             submit={handleSubmit}
                             Field={Field}
-                            loading={creating}
+                            loading={updating}
                         />
                     </>
                 )}
@@ -48,4 +46,4 @@ function InventoryPopup({ isOpen, onClose }) {
     )
 }
 
-export default InventoryPopup
+export default SalesAddDiscount

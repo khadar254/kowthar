@@ -1,46 +1,55 @@
 import React from 'react'
 import { Tr, Td, IconButton, useDisclosure } from '@chakra-ui/react'
-import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa'
+import { FaTrashAlt, FaPencilAlt } from 'react-icons/fa'
+import { useSales } from '../../contexts/SalesContext'
 import DeleteDrawer from '../common/DeleteDrawer'
-import { useCustomer } from '../../contexts/CustomerContext'
-import CustomerEditPopup from './CustomerEditPopup'
+import { useHistory } from 'react-router-dom'
+import SalesProductEditPopup from '../sales/SalesProductEditPopup'
 
-function CustomerListItem({ customer }) {
-    const { deleting, deleteCustomer } = useCustomer()
-    const { isOpen, onClose, onOpen } = useDisclosure()
+function SalesDetailProductListItem({ item, saleId }) {
+    const history = useHistory()
+    const { updating, deleteProductToOrder } = useSales()
     const {
         isOpen: delIsOpen,
         onClose: delClose,
         onOpen: delOpen,
     } = useDisclosure()
+    const { isOpen, onClose, onOpen } = useDisclosure()
+
+    function deleteSalesProduct(id) {
+        deleteProductToOrder(id, item?.name)
+        history.go(0)
+    }
 
     return (
         <>
-            <CustomerEditPopup
-                isOpen={isOpen}
+            <SalesProductEditPopup
+                product={item}
+                salesId={saleId}
                 onClose={onClose}
-                customer={customer}
+                isOpen={isOpen}
             />
             <DeleteDrawer
-                deleteFunc={deleteCustomer}
-                id={customer?._id}
+                deleteFunc={deleteSalesProduct}
+                id={saleId}
                 isOpen={delIsOpen}
                 onClose={delClose}
-                loading={deleting}
-                label={customer?.name}
+                loading={updating}
+                label={item?.name}
             />
             <Tr>
-                <Td>{customer?.name}</Td>
-                <Td>{customer?.number}</Td>
-                <Td>{customer?.transactions || 1}</Td>
+                <Td>{item?.name}</Td>
+                <Td>KES {item?.productPrice}</Td>
+                <Td>{item?.quantity}</Td>
+                <Td>{item?.quantity * item?.productPrice}</Td>
                 <Td>
                     <IconButton
                         icon={<FaPencilAlt />}
                         colorScheme='cyan'
                         borderRadius='10px'
+                        onClick={onOpen}
                         _focus={{ outline: 'none' }}
                         _active={{ outline: 'none' }}
-                        onClick={onOpen}
                         color='#fff'
                     />
 
@@ -60,4 +69,4 @@ function CustomerListItem({ customer }) {
     )
 }
 
-export default CustomerListItem
+export default SalesDetailProductListItem
