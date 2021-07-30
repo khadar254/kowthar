@@ -21,11 +21,7 @@ function Users() {
     const { fetchUsers, user, users } = useAuth()
 
     useEffect(() => {
-        if (user?.role !== 'admin') {
-            history.goBack()
-        } else {
-            fetchUsers()
-        }
+        fetchUsers()
     }, [fetchUsers, user?.role, history])
     return (
         <>

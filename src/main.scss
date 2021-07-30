@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 15px;
+}
+
+.datepicker {
+    padding: 10px;
+    height: 3rem;
+    background: transparent;
+    border: 2px solid #999;
+    border-radius: 10px;
+
+    &:focus {
+        border-radius: 10px;
+        border: 2px solid #777;
+        background: transparent;
+        outline: none;
+    }
+
+    .react-daterange-picker__wrapper {
+        border: none;
+    }
+}
+
+.react_calendar {
+    border-radius: 10px !important;
+    margin-top: 1rem !important;
+}

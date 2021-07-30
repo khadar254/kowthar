@@ -29,7 +29,7 @@ function ProductListItem({ product }) {
                 loading={deleting}
                 label={product?.name}
             />
-            <Tr>
+            <Tr border='2px solid #e2e2e2'>
                 <Td>{product?.name}</Td>
                 <Td>{product?.price}</Td>
                 <Td>{product?.quantity}</Td>

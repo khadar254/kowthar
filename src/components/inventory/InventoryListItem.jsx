@@ -3,7 +3,7 @@ import { Tr, Td } from '@chakra-ui/react'
 
 function InventoryListItem({ item }) {
     return (
-        <Tr>
+        <Tr border='2px solid #e2e2e2'>
             <Td>{item?.productName || item?.productId}</Td>
             <Td>{item?.quantityAdded}</Td>
             <Td>{item?.userName}</Td>

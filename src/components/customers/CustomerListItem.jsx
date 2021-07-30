@@ -4,8 +4,10 @@ import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa'
 import DeleteDrawer from '../common/DeleteDrawer'
 import { useCustomer } from '../../contexts/CustomerContext'
 import CustomerEditPopup from './CustomerEditPopup'
+import { useAuth } from '../../contexts/AuthContext'
 
 function CustomerListItem({ customer }) {
+    const { user } = useAuth()
     const { deleting, deleteCustomer } = useCustomer()
     const { isOpen, onClose, onOpen } = useDisclosure()
     const {
@@ -29,32 +31,34 @@ function CustomerListItem({ customer }) {
                 loading={deleting}
                 label={customer?.name}
             />
-            <Tr>
+            <Tr border='2px solid #e2e2e2'>
                 <Td>{customer?.name}</Td>
                 <Td>{customer?.number}</Td>
                 <Td>{customer?.transactions || 1}</Td>
-                <Td>
-                    <IconButton
-                        icon={<FaPencilAlt />}
-                        colorScheme='cyan'
-                        borderRadius='10px'
-                        _focus={{ outline: 'none' }}
-                        _active={{ outline: 'none' }}
-                        onClick={onOpen}
-                        color='#fff'
-                    />
+                {user?.role === 'admin' && (
+                    <Td>
+                        <IconButton
+                            icon={<FaPencilAlt />}
+                            colorScheme='cyan'
+                            borderRadius='10px'
+                            _focus={{ outline: 'none' }}
+                            _active={{ outline: 'none' }}
+                            onClick={onOpen}
+                            color='#fff'
+                        />
 
-                    <IconButton
-                        mx='1rem'
-                        icon={<FaTrashAlt />}
-                        colorScheme='red'
-                        onClick={delOpen}
-                        _focus={{ outline: 'none' }}
-                        _active={{ outline: 'none' }}
-                        borderRadius='10px'
-                        color='#fff'
-                    />
-                </Td>
+                        <IconButton
+                            mx='1rem'
+                            icon={<FaTrashAlt />}
+                            colorScheme='red'
+                            onClick={delOpen}
+                            _focus={{ outline: 'none' }}
+                            _active={{ outline: 'none' }}
+                            borderRadius='10px'
+                            color='#fff'
+                        />
+                    </Td>
+                )}
             </Tr>
         </>
     )

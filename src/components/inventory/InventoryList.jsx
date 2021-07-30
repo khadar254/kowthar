@@ -14,7 +14,7 @@ const InventoryListItem = lazy(() => import('./InventoryListItem'))
 function InventoryList({ inventory }) {
     return (
         <Box as={Stack} direction='row' justifyContent='space-between'>
-            <Table flex='2' variant='simple'>
+            <Table flex='2' variant='striped' colorScheme='gray'>
                 <TableCaption fontSize='1rem' color='#777'>
                     Inventory table
                 </TableCaption>

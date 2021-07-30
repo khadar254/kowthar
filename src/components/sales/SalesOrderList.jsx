@@ -18,7 +18,7 @@ function SalesOrderList({ salesOrders }) {
             direction='row'
             justifyContent='space-between'
             p='0 20px'>
-            <Table flex='2' variant='striped'>
+            <Table flex='2' variant='striped' colorScheme='gray'>
                 <TableCaption fontSize='1rem' color='#777'>
                     Sales Orders Table
                 </TableCaption>

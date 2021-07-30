@@ -48,6 +48,29 @@ router.get('/', authVerify, async (_, res) => {
     }
 })
 
+router.get('/bydate/:from/:to', authVerify, async (req, res) => {
+    try {
+        const { from, to } = req.params
+
+        const fromDate = new Date(from).toISOString()
+        const toDate = new Date(to).toISOString()
+
+        const items = await inventory
+            .find({ created: { $gte: fromDate, $lte: toDate } })
+            .sort({ created: 'desc' })
+
+        if (!items) {
+            return res.status(404).json({ message: 'Inventories not found' })
+        } else {
+            return res.status(200).json({ items })
+        }
+    } catch (error) {
+        return res
+            .status(400)
+            .json({ message: `Something went wrong: ${error}` })
+    }
+})
+
 router.get('/:id', authVerify, async (req, res) => {
     try {
         const { id } = req.params

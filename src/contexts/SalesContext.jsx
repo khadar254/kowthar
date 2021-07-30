@@ -230,6 +230,26 @@ function SalesProvider({ children }) {
         }
     }
 
+    const filterByDate = async (from, to) => {
+        try {
+            dispatch({
+                type: types.FETCH_SALES_REQUEST,
+            })
+
+            const { data } = await axios.get(
+                `/api/sales/bydate/${from}/${to}`,
+                config()
+            )
+
+            dispatch({
+                type: types.FETCH_SALES_SUCCESS,
+                payload: data,
+            })
+        } catch (error) {
+            dispatch({ type: types.FETCH_SALES_FAIL })
+        }
+    }
+
     const value = {
         ...state,
         createSales,
@@ -241,6 +261,7 @@ function SalesProvider({ children }) {
         updateProductToOrder,
         deleteProductToOrder,
         calculateGrandtotal,
+        filterByDate,
     }
     return (
         <SalesContext.Provider value={value}>{children}</SalesContext.Provider>

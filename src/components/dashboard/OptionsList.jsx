@@ -34,7 +34,7 @@ function OptionsList() {
             image: '/images/customermanage.svg',
             link: '/customers',
             name: 'Manage Customers',
-            show: 'admin',
+            show: 'admin & sales',
         },
     ]
     return (

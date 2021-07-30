@@ -33,7 +33,7 @@ function SalesOrderListItem({ sale }) {
                 loading={deleting}
                 label={sale?.name}
             />
-            <Tr>
+            <Tr border='2px solid #e2e2e2'>
                 <Td>
                     <Link to={`/sale/${sale?.name}`}>{sale?.name} &rarr;</Link>
                 </Td>

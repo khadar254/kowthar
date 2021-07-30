@@ -24,23 +24,14 @@ function UserListItem({ user }) {
                 id={user?._id}
                 loading={deleting}
             />
-            <Tr>
+            <Tr border='2px solid #e2e2e2'>
                 <Td>{user?.name}</Td>
                 <Td>{user?.username}</Td>
                 <Td>{user?.email}</Td>
                 <Td>{user?.role}</Td>
                 <Td>{new Date(user?.lastLoggedInAt).toLocaleString()}</Td>
-                <Td>
-                    {isOpen ? (
-                        <IconButton
-                            _focus={{ outine: 'none' }}
-                            icon={<FaTimesCircle />}
-                            colorScheme='cyan'
-                            onClick={onClose}
-                            borderRadius='10px'
-                            color='#f2f2f2'
-                        />
-                    ) : (
+                {currentUser.role === 'admin' && (
+                    <Td>
                         <IconButton
                             _focus={{ outine: 'none' }}
                             icon={<FaPencilAlt />}
@@ -49,19 +40,20 @@ function UserListItem({ user }) {
                             borderRadius='10px'
                             color='#f2f2f2'
                         />
-                    )}
 
-                    {currentUser?.username === user?.username ? null : (
-                        <IconButton
-                            ml='0.5rem'
-                            _focus={{ outine: 'none' }}
-                            borderRadius='10px'
-                            onClick={delOpen}
-                            icon={<FaTrashAlt />}
-                            colorScheme='red'
-                        />
-                    )}
-                </Td>
+                        {currentUser.role === 'admin' &&
+                            currentUser?.username !== user?.username && (
+                                <IconButton
+                                    ml='0.5rem'
+                                    _focus={{ outine: 'none' }}
+                                    borderRadius='10px'
+                                    onClick={delOpen}
+                                    icon={<FaTrashAlt />}
+                                    colorScheme='red'
+                                />
+                            )}
+                    </Td>
+                )}
             </Tr>
         </>
     )

@@ -1,35 +1,36 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Box,
     Heading,
     HStack,
     Divider,
     IconButton,
+    Text,
     Button,
     useDisclosure,
 } from '@chakra-ui/react'
 import Navbar from '../components/common/Navbar'
-import { FaChevronLeft } from 'react-icons/fa'
+import { FaChevronLeft, FaCalendarAlt } from 'react-icons/fa'
 import { useHistory } from 'react-router-dom'
 import { useInventory } from '../contexts/InventoryContext'
-import { useAuth } from '../contexts/AuthContext'
 import InventoryPopup from '../components/inventory/InventoryPopup'
 import InventoryList from '../components/inventory/InventoryList'
 import ExportExcel from '../components/common/ExportExcel'
+import DateRangePicker from '@wojtekmaj/react-daterange-picker'
 
 function Inventory() {
     const history = useHistory()
     const { isOpen, onClose, onOpen } = useDisclosure()
-    const { fetchInventory, inventory } = useInventory()
-    const { user } = useAuth()
+    const { fetchInventory, inventory, fetchInventoryByDate } = useInventory()
+    const [dateValue, setDateValue] = useState(null, null)
 
     useEffect(() => {
-        if (user?.role !== 'admin') {
-            history.push('/dashboard')
+        if (dateValue) {
+            fetchInventoryByDate(dateValue[0], dateValue[1])
         } else {
             fetchInventory()
         }
-    }, [user?.role, history])
+    }, [dateValue])
 
     const fileName = 'kowthar_hardware_inventory'
     return (
@@ -76,6 +77,21 @@ function Inventory() {
                         </HStack>
                     </HStack>
                     <Divider my='1rem' border='2px solid #eee' />
+                    <HStack
+                        my='2rem'
+                        textAlign='center'
+                        justifyContent='flex-end'>
+                        <Text fontSize='1.4rem'>Filter by date:</Text>
+                        <DateRangePicker
+                            value={dateValue}
+                            className='datepicker'
+                            dayPlaceholder='10'
+                            monthPlaceholder='7'
+                            yearPlaceholder='2021'
+                            onChange={setDateValue}
+                            calendarIcon={<FaCalendarAlt />}
+                        />
+                    </HStack>
                     <InventoryList inventory={inventory} />
                 </Box>
             </Box>

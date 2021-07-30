@@ -66,6 +66,26 @@ function InventoryProvider({ children }) {
         }
     }, [])
 
+    const fetchInventoryByDate = useCallback(async (from, to) => {
+        try {
+            dispatch({
+                type: types.FETCH_INVENTORY_REQUEST,
+            })
+
+            const { data = {} } = await axios.get(
+                `/api/inventory/byDate/${from}/${to}`,
+                config()
+            )
+
+            dispatch({
+                type: types.FETCH_INVENTORY_SUCCESS,
+                payload: data,
+            })
+        } catch (error) {
+            dispatch({ type: types.FETCH_INVENTORY_FAIL })
+        }
+    }, [])
+
     async function updateInventory(id, update) {
         try {
             dispatch({
@@ -98,6 +118,7 @@ function InventoryProvider({ children }) {
         createInventory,
         fetchInventory,
         updateInventory,
+        fetchInventoryByDate,
     }
     return (
         <InventoryContext.Provider value={value}>

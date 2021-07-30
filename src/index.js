@@ -1,4 +1,5 @@
 import React from 'react'
+import './main.scss'
 import ReactDOM from 'react-dom'
 import AppRouter from './Router'
 import reportWebVitals from './reportWebVitals'
@@ -7,6 +8,7 @@ import { theme } from './utils/theme'
 import ContextProvider from './contexts'
 import '@fontsource/fira-sans/700.css'
 import '@fontsource/fira-sans/400.css'
+import 'react-datepicker/dist/react-datepicker.css'
 
 const app = (
     <React.StrictMode>

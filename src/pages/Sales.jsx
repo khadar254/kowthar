@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Box,
     Heading,
@@ -7,22 +7,29 @@ import {
     Button,
     IconButton,
     useDisclosure,
+    Text,
 } from '@chakra-ui/react'
 import Navbar from '../components/common/Navbar'
-import { FaChevronLeft } from 'react-icons/fa'
+import { FaChevronLeft, FaCalendarAlt } from 'react-icons/fa'
 import { useHistory } from 'react-router-dom'
 import { useSales } from '../contexts/SalesContext'
 import SalesOrderList from '../components/sales/SalesOrderList'
 import SalesOrderPopup from '../components/sales/SalesPopup'
+import DateRangePicker from '@wojtekmaj/react-daterange-picker'
 
 function Sales() {
     const history = useHistory()
     const { onClose, isOpen, onOpen } = useDisclosure()
-    const { sales, fetchSales } = useSales()
+    const { sales, fetchSales, filterByDate } = useSales()
+    const [dateValue, setDateValue] = useState(null, null)
 
     useEffect(() => {
-        fetchSales()
-    }, [])
+        if (dateValue) {
+            filterByDate(dateValue[0], dateValue[1])
+        } else {
+            fetchSales()
+        }
+    }, [dateValue])
     return (
         <>
             <Navbar />
@@ -52,7 +59,8 @@ function Sales() {
                         </HStack>
                         <Button
                             bg='cyan.600'
-                            width='10%'
+                            minWidth='10%'
+                            width='auto'
                             height='3rem'
                             onClick={onOpen}
                             color='#fff'
@@ -63,6 +71,21 @@ function Sales() {
                         </Button>
                     </HStack>
                     <Divider my='1rem' border='2px solid #eee' />
+                    <HStack
+                        my='2rem'
+                        textAlign='center'
+                        justifyContent='flex-end'>
+                        <Text fontSize='1.4rem'>Filter by date:</Text>
+                        <DateRangePicker
+                            value={dateValue}
+                            className='datepicker'
+                            dayPlaceholder='10'
+                            monthPlaceholder='7'
+                            yearPlaceholder='2021'
+                            onChange={setDateValue}
+                            calendarIcon={<FaCalendarAlt />}
+                        />
+                    </HStack>
                     <SalesOrderList salesOrders={sales} />
                 </Box>
             </Box>
