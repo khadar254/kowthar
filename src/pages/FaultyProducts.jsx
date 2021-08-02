@@ -11,24 +11,20 @@ import {
 import Navbar from '../components/common/Navbar'
 import { FaChevronLeft } from 'react-icons/fa'
 import { useHistory } from 'react-router-dom'
-import { useProduct } from '../contexts/ProductContext'
+import { useFaultyProduct } from '../contexts/FaultyContext'
+import FaultyProductPopup from '../components/faultyproducts/FaultyProductPopup'
+import FaultyProductList from '../components/faultyproducts/FaultyProductList'
 import { useAuth } from '../contexts/AuthContext'
-import ProductPopup from '../components/products/ProductPopup'
-import ProductList from '../components/products/ProductList'
 
-function Product() {
+function FaultyProducts() {
     const history = useHistory()
-    const { isOpen, onClose, onOpen } = useDisclosure()
-    const { products, fetchProducts } = useProduct()
     const { user } = useAuth()
+    const { isOpen, onClose, onOpen } = useDisclosure()
+    const { products, fetchFaultyProducts } = useFaultyProduct()
 
     useEffect(() => {
-        if (user?.role !== 'admin') {
-            history.push('/dashboard')
-        } else {
-            fetchProducts()
-        }
-    }, [user?.role, history])
+        fetchFaultyProducts()
+    }, [])
     return (
         <>
             <Navbar />
@@ -38,7 +34,7 @@ function Product() {
                 overflow='hidden'
                 width='100%'
                 bg='#eee'>
-                <ProductPopup onClose={onClose} isOpen={isOpen} />
+                <FaultyProductPopup onClose={onClose} isOpen={isOpen} />
                 <Box
                     mx='auto'
                     width={['100%', '100%', '90%', '80%']}
@@ -54,7 +50,7 @@ function Product() {
                                 _hover={{ bg: 'cyan.700' }}
                                 mr='2rem'
                             />
-                            <Heading>Manage Products</Heading>
+                            <Heading>Manage Faulty Products</Heading>
                         </HStack>
 
                         <Button
@@ -62,19 +58,21 @@ function Product() {
                             width='auto'
                             height='3rem'
                             onClick={onOpen}
+                            isDisabled={user?.role !== 'admin'}
+                            hidden={user?.role !== 'admin' && 'hidden'}
                             color='#fff'
                             borderRadius='10px'
                             _focus={{ outline: 'none' }}
                             _hover={{ bg: 'cyan.600' }}>
-                            New Product
+                            Add Faulty Product
                         </Button>
                     </HStack>
                     <Divider my='1rem' border='2px solid #eee' />
-                    <ProductList products={products} />
+                    <FaultyProductList products={products} />
                 </Box>
             </Box>
         </>
     )
 }
 
-export default Product
+export default FaultyProducts

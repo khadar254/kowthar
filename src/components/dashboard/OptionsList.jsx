@@ -36,6 +36,12 @@ function OptionsList() {
             name: 'Manage Customers',
             show: 'admin & sales',
         },
+        {
+            image: '/images/faulty.svg',
+            link: '/faultyproducts',
+            name: 'Manage Faulty Products',
+            show: 'admin & sales',
+        },
     ]
     return (
         <Box mt='2rem' p='20px 0' width='100%' height='auto'>

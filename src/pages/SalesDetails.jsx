@@ -85,7 +85,8 @@ function SalesDetails() {
                         alignItems='flex-end'
                         p='10px 0'
                         width='100%'>
-                        <Heading size='sm' mx='1rem'>
+                        <Text>Discount &bull; {sale?.discount}%</Text>
+                        <Heading size='md' mx='1rem' my='1rem'>
                             Grandtotal: {sale?.grandTotal}
                         </Heading>
 

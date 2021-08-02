@@ -50,6 +50,7 @@ function ReceiptItems({ sale, refr }) {
                     </Table>
                 </Box>
                 <VStack my='2rem' alignItems='flex-end'>
+                    <Text>Sales by : {sale?.salesBy}</Text>
                     <Text>
                         Order Date &bull;{' '}
                         {new Date(sale?.created).toLocaleDateString()}
@@ -59,6 +60,13 @@ function ReceiptItems({ sale, refr }) {
                     <Heading my='1rem'>
                         Grandtotal &bull; KES {sale?.grandTotal}
                     </Heading>
+                </VStack>
+                <VStack mt='5rem' color='#555'>
+                    <Heading size='lg'>Please come again</Heading>
+                    <Heading size='md'>Thank you</Heading>
+                    <Text>
+                        {new Date().getFullYear()} &copy; Kowthar Hardware
+                    </Text>
                 </VStack>
             </Box>
         </>

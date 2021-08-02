@@ -11,6 +11,7 @@ import { salesRoutes } from './routes/sales'
 import { productRoutes } from './routes/product'
 import { customerRoutes } from './routes/customer'
 import { inventoryRoutes } from './routes/inventory'
+import { faultyProductRoutes } from './routes/faulty'
 
 // create express app
 const app = express()
@@ -70,6 +71,7 @@ app.use('/api/sales/', salesRoutes)
 app.use('/api/products/', productRoutes)
 app.use('/api/customers/', customerRoutes)
 app.use('/api/inventory/', inventoryRoutes)
+app.use('/api/faultyproducts/', faultyProductRoutes)
 
 const port = process.env.PORT || 3001
 

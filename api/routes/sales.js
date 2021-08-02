@@ -119,6 +119,7 @@ router.put('/:id', async (req, res) => {
 
         const update = {
             ...req.body,
+            // status: 'in progress',
             updated: Date.now(),
         }
 
@@ -205,8 +206,6 @@ router.put('/updateproduct/:salesId/:prodName', async (req, res) => {
         let { products } = salesOrder
 
         let prodToUpdate = products.find((prod) => prod.name === prodName)
-
-        console.log('product to update', prodToUpdate)
 
         if (data.quantity > prodToUpdate.quantity) {
             // the quantity increased
@@ -324,6 +323,7 @@ router.put('/completesale/:salesId', async (req, res) => {
                 grandTotal
             )
         }
+
 
         const update = {
             grandTotal,
