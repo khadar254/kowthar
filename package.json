@@ -13,7 +13,19 @@
         "eject": "react-scripts eject",
         "dev": "concurrently -k \"yarn start\" \"yarn run electron\" \"yarn run api\"",
         "start:dev": "concurrently -k \"yarn start\"  \"yarn run api\"",
-        "electron": "wait-on tcp:3000 && electron ."
+        "electron": "wait-on tcp:3000 && electron .",
+        "package":"electron-builder --dir /build",
+        "dist":"electron-builder"
+    },
+    "build":{
+        "appId":"kowthar-app",
+        "mac":{
+            "category":"development"
+        },
+        "linux":{
+            "target": ["AppImage"],
+            "category":"development"
+        }
     },
     "repository": {
         "type": "git",
