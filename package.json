@@ -14,17 +14,19 @@
         "dev": "concurrently -k \"yarn start\" \"yarn run electron\" \"yarn run api\"",
         "start:dev": "concurrently -k \"yarn start\"  \"yarn run api\"",
         "electron": "wait-on tcp:3000 && electron .",
-        "package":"electron-builder --dir /build",
-        "dist":"electron-builder"
+        "package": "electron-builder --dir /build",
+        "dist": "electron-builder"
     },
-    "build":{
-        "appId":"kowthar-app",
-        "mac":{
-            "category":"development"
+    "build": {
+        "appId": "kowthar-app",
+        "mac": {
+            "category": "development"
         },
-        "linux":{
-            "target": ["AppImage"],
-            "category":"development"
+        "linux": {
+            "target": [
+                "AppImage"
+            ],
+            "category": "development"
         }
     },
     "repository": {
@@ -51,7 +53,6 @@
         "concurrently": "^6.2.0",
         "cors": "^2.8.5",
         "dotenv": "^10.0.0",
-        "electron": "^13.1.5",
         "electron-is-dev": "^2.0.0",
         "esm": "^3.2.25",
         "express": "^4.17.1",
@@ -75,6 +76,8 @@
         "yup": "^0.32.9"
     },
     "devDependencies": {
+        "electron": "^13.1.9",
+        "electron-packager": "^15.3.0",
         "nodemon": "^2.0.9",
         "wait-on": "^6.0.0"
     },

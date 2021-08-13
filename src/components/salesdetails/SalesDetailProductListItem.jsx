@@ -5,9 +5,11 @@ import { useSales } from '../../contexts/SalesContext'
 import DeleteDrawer from '../common/DeleteDrawer'
 import { useHistory } from 'react-router-dom'
 import SalesProductEditPopup from '../sales/SalesProductEditPopup'
+import { useAuth } from '../../contexts/AuthContext'
 
-function SalesDetailProductListItem({ item, saleId }) {
+function SalesDetailProductListItem({ item, sale }) {
     const history = useHistory()
+    const { user } = useAuth()
     const { updating, deleteProductToOrder } = useSales()
     const {
         isOpen: delIsOpen,
@@ -25,13 +27,13 @@ function SalesDetailProductListItem({ item, saleId }) {
         <>
             <SalesProductEditPopup
                 product={item}
-                salesId={saleId}
+                salesId={sale?._id}
                 onClose={onClose}
                 isOpen={isOpen}
             />
             <DeleteDrawer
                 deleteFunc={deleteSalesProduct}
-                id={saleId}
+                id={sale?._id}
                 isOpen={delIsOpen}
                 onClose={delClose}
                 loading={updating}
@@ -42,11 +44,16 @@ function SalesDetailProductListItem({ item, saleId }) {
                 <Td>KES {item?.productPrice}</Td>
                 <Td>{item?.quantity}</Td>
                 <Td>{item?.quantity * item?.productPrice}</Td>
+
                 <Td>
                     <IconButton
                         icon={<FaPencilAlt />}
                         colorScheme='cyan'
                         borderRadius='10px'
+                        isDisabled={
+                            user?.username !== sale?.salesBy &&
+                            user?.role !== 'admin'
+                        }
                         onClick={onOpen}
                         _focus={{ outline: 'none' }}
                         _active={{ outline: 'none' }}
@@ -58,6 +65,10 @@ function SalesDetailProductListItem({ item, saleId }) {
                         icon={<FaTrashAlt />}
                         colorScheme='red'
                         onClick={delOpen}
+                        isDisabled={
+                            user?.username !== sale?.salesBy &&
+                            user?.role !== 'admin'
+                        }
                         _focus={{ outline: 'none' }}
                         _active={{ outline: 'none' }}
                         borderRadius='10px'

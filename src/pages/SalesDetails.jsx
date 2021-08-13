@@ -17,8 +17,10 @@ import { Link, useHistory, useParams } from 'react-router-dom'
 import { useSales } from '../contexts/SalesContext'
 import SalesDetailProductPopup from '../components/salesdetails/SalesDetailProductPopup'
 import SalesDetailProductList from '../components/salesdetails/SalesDetailProductsList'
+import { useAuth } from '../contexts/AuthContext'
 
 function SalesDetails() {
+    const { user } = useAuth()
     const history = useHistory()
     const params = useParams()
     const { onClose, isOpen, onOpen } = useDisclosure()
@@ -68,6 +70,10 @@ function SalesDetails() {
                             bg='cyan.600'
                             width='10%'
                             height='3rem'
+                            isDisabled={
+                                user?.username !== sale?.salesBy &&
+                                user?.role !== 'admin'
+                            }
                             onClick={onOpen}
                             color='#fff'
                             borderRadius='10px'

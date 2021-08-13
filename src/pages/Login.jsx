@@ -60,7 +60,6 @@ function Login() {
                     }}
                     validationSchema={validator}
                     onSubmit={(values, actions) => {
-                        console.log(values)
                         login(values)
                         actions.resetForm()
                     }}>

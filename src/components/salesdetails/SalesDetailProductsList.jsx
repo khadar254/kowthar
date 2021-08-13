@@ -39,7 +39,7 @@ function SalesDetailProductsList({ sale }) {
                                 fallback={<h1>Loading ...</h1>}>
                                 <SalesDetailProductListItem
                                     item={product}
-                                    saleId={sale?._id}
+                                    sale={sale}
                                 />
                             </Suspense>
                         ))}
